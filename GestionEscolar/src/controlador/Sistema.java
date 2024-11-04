@@ -1,6 +1,7 @@
 package controlador;
 
 /**
+ * Añadiendo documentación a Sistema.
  *
  * @author Oscar Rojas
  */
