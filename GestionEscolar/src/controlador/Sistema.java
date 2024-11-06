@@ -2,7 +2,7 @@ package controlador;
 
 /**
  * Documentación de la clase Sistema.
- * Comentario que hizo alguien más.
+ * Comentario sobre el comentario.
  *
  * @author Oscar Rojas
  */
