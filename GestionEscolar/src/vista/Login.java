@@ -1,9 +1,11 @@
 package vista;
 
 /**
- *
- * @author Oscar Rojas
+ * 
+ * @author Saúl Ojeda
  */
 public class Login {
-    
+    public static void iniciar(){
+        
+    }
 }

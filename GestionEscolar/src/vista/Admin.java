@@ -24,30 +24,72 @@ public class Admin {
          */
         System.out.println("Hola Administrador\n ¿Que cambio quiere hacer?");
         System.out.println("1)Consultar academicos \n2)Agregar algún academico \n3)Modificar algun academico \n4)Eliminar algun academico \n5)Verificar los accesos \n6)Salir");
+        try {
+            Scanner lectura = new Scanner(System.in);
+            int op = lectura.nextInt();
+            imprimirMenu(op);
+        }catch(java.util.InputMismatchException e){
+            System.out.println("Se ingresó una opción invalida\n");
+            iniciar();
+        }
+        
+    }
+    
+    /**
+     * Metodo encargado de ejecutar la opción seleccionada por el usuario
+     */
+    private static void imprimirMenu(int op){
         Scanner lectura = new Scanner(System.in);
-        int op = lectura.nextInt();
-        while(op != 5){    
+        while(op != 6){    
             switch(op){
                 case 1 -> {
                     consultarAcademicos();
                 }
                 
                 case 2 -> {
-                    System.out.println("Ingresa el nombre del academico a modificar: ");
-                    String academico = lectura.next();
-                    agregarAcademicos(academico);
+                    boolean tmpCl;
+                    System.out.println("Ingresa el nombre del academico a agregar: ");
+                    String nombre = lectura.next();
+                    System.out.println("Ingresa la clave del academico a agregar: ");
+                    String clave = lectura.next();
+                    do{
+                        tmpCl = verificarClaveRepetida(clave);
+                        if(tmpCl == true)
+                            System.out.println("Esa clave ya existe, use una diferente");
+                        else
+                            clave = lectura.next();
+                    }while(tmpCl != false);
+                    System.out.println("Ingresa la contraseña del academico a agregar: ");
+                    String contrasena = lectura.next();
+                    agregarAcademicos(nombre, clave, contrasena);
                 }
 
                 case 3 -> {
-                    System.out.println("Ingresa el nombre del academico a modificar: ");
-                    String academico = lectura.next();
-                    modificarAcademicos(academico);
+                    boolean tmpCl;
+                    System.out.println("Ingresa la clave del academico a modificar: ");
+                    String clave = lectura.next();
+                    do{
+                        tmpCl = verificarClaveRepetida(clave);
+                        if(tmpCl == false)
+                            System.out.println("Esa clave no existe, use una diferente");
+                        else
+                            clave = lectura.next();
+                    }while(tmpCl != true);
+                    modificarAcademicos(clave);
                 }
 
                 case 4 -> { 
-                    System.out.println("Ingresa el nombre del academico a eliminar: ");
-                    String academico = lectura.next();
-                    eliminarAcademicos(academico);
+                    boolean tmpCl;
+                    System.out.println("Ingresa la clave del academico a eliminar: ");
+                    String clave = lectura.next();
+                    do{
+                        tmpCl = verificarClaveRepetida(clave);
+                        if(tmpCl == false)
+                            System.out.println("Esa clave no existe, use una diferente");
+                        else
+                            clave = lectura.next();
+                    }while(tmpCl != true);
+                    eliminarAcademicos(clave);
                 }
 
                 case 5 -> {
@@ -55,7 +97,7 @@ public class Admin {
                 }
                 
                 case 6 -> {
-                    op = 5;
+                    op = 6;
                 }
                 
                 default -> {
@@ -64,40 +106,44 @@ public class Admin {
             }
         }
     }
-
-    /**
-     * Variable encargada de interactuar con la clase sistema
-     */
-    Sistema sistema = Sistema.getInstance();
     
     /**
      * Metodo encargado de solicitar el sistema que imprima la lista de los academicos registrados
      */
     private static void consultarAcademicos() {
-        sistema.imprimirAcademicoS();
+        Sistema.imprimirAcademicoS();
+    }
+    
+    /**
+     * Metodo encargado de informar si la clave ingresada existe
+     * @param clave
+     * @return 
+     */
+    private static boolean verificarClaveRepetida(String clave){
+        return Sistema.verificarClaveRepetida(clave);
     }
     
     /**
      * Metodo encargado de solicitar el sistema que agregue un academico 
      */
-    private static void agregarAcademicos(String academico){
-        sistema.agregarAcademicoS(academico);
-        System.out.println("Se elimino el academico solicitado");
+    private static void agregarAcademicos(String nombre, String clave, String contrasena){
+        Sistema.agregarAcademicoS(nombre, clave, contrasena);
+        System.out.println("Se agrego el academico solicitado");
     }
     
     /**
      * Metodo encargado de solicitar el sistema que modifique el academico solicitado
      */
-    private static void modificarAcademicos(String academico){
-        sistema.modificarAcademicoS(academico);
+    private static void modificarAcademicos(String clave){
+        Sistema.modificarAcademicoS(clave);
         System.out.println("Se elimino el academico solicitado");
     }
     
     /**
      * Metodo encargado de solicitar el sistema que elimine el academico solicitado
      */ 
-    private static void eliminarAcademicos(String academico){
-        sistema.eliminarAcademicoS(academico);
+    private static void eliminarAcademicos(String clave){
+        Sistema.eliminarAcademicoS(clave);
         System.out.println("Se elimino el academico solicitado");
     }
     
@@ -105,7 +151,11 @@ public class Admin {
      * Metodo encargado de solicitar el sistema que verifique los academicos que ingresaron al programa
      */ 
     private static void verificarAcesos(){
-        sistema.verificarAccesosS();
+        Sistema.verificarAccesosS();
         System.out.println("Se elimino el academico solicitado");
+    }
+    
+    public static void main(String[] args) {
+        Admin.iniciar();
     }
 }
