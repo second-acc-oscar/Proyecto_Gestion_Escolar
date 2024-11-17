@@ -1,4 +1,4 @@
-package modelo.data_base;
+package modelo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.StringTokenizer;
 import modelo.BaseDatos;
 
 /**
@@ -30,48 +31,74 @@ import modelo.BaseDatos;
  * @author Oscar Rojas
  */
 public class Archivos {
-    private BaseDatos db = BaseDatos.getInstance();
+    /**
+     * Instancia única de la base de datos. Requerida para incializarla.
+     */
+    private static BaseDatos db = BaseDatos.getInstance();
     
-    private static final String RUTA = "files/csv/prueba.txt";
-    private static final String CONTENIDO = "Hola, soy contenido de prueba.\n";
+    /**
+     * Ruta en los archivos del proyecto donde se encuentra el archivos de nombres. Se requiere para su lectura. (files/csv/nombres.csv)
+     */
+    private static final String RUTA_NOMBRES = "files/csv/nombres.csv";
+    /**
+     * Ruta en los archivos del proyecto donde se encuentra el archivos de apellidos. Se requiere para su lectura. (files/csv/apellidos.csv)
+     */
+    private static final String RUTA_APELLIDOS = "files/csv/apellidos.csv";
     
+    /**
+     * Método utilizado al iniciar la aplicación para inflar los atributos de la base de datos necesarios para la lógica de la aplicación.
+     * @param bd Instancia única de la base de datos. Requerida para incializarla.
+     * @return {@code true} si no hubo ningún error, {@code false} si es que hubo algún error (controlado) al momento de leer la base de datos desde el sistema de archivos.
+     */
     public static boolean inicializarBaseDatos( BaseDatos bd ) {
-        escribirCSV();
-        
+        try {
+            leerNombres( db );
+            leerApellidos( db );
+        } catch ( IOException e ) {
+            System.out.println("Error al incializar la base de datos.");
+            System.out.println( e.getMessage() );
+        }
         return true;
     }
     
-    private void leerNombres( BaseDatos bd ) {
-        try {
-            FileReader fr = new FileReader( RUTA );
-            BufferedReader br = new BufferedReader(fr);
-            System.out.println("###");
-            System.out.println("El texto del archivo es: ");
-            String linea = br.readLine();
-            while(linea != null )
+    /**
+     * Abre el archivo "files/csv/nombres.csv" para leer cada uno de los nombres en él e inicializar la base de datos con ellos.
+     * @param bd Instancia única de la base de datos. Requerida para incializarla.
+     * @throws IOException Error al leer los archivos, e.g. al momento de leer los nombres o apellidos.
+     */
+    private static void leerNombres( BaseDatos bd ) throws IOException {
+        try ( FileReader fr = new FileReader( RUTA_NOMBRES ); BufferedReader br = new BufferedReader( fr ) ) {            
+            String fileContent = br.readLine();
+            while( fileContent != null )
             {
-                System.out.println(linea);
-                linea = br.readLine();
+                bd.addNombre( fileContent );
+                fileContent = br.readLine();
             }
-        } catch (IOException e) {
-            System.out.println( e.getMessage() );
+        } catch ( IOException e ) {
+            System.out.println( "Ha ocurrido un error al leer los nombres dede la ruta original." );
+            throw new IOException( e );
         }
     }
     
-    public static void main(String[] args) {
-        System.out.println("Escrbiendo archivo.");
-        Archivos.inicializarBaseDatos( BaseDatos.getInstance() );
-    }
-    
-    private static void escribirCSV() {
-        try {
-            FileWriter fw = new FileWriter( RUTA ); // Si no existe el archivo, se crea. Si sì existe, se sobreescribe
-            BufferedWriter bw = new BufferedWriter( fw );
-            PrintWriter salida = new PrintWriter( bw );
-            salida.println( CONTENIDO );
-            salida.close();
-        } catch (IOException e) {
-            System.out.println( e.getMessage() );
+    /**
+     * Abre el archivo "files/csv/apellidos.csv" para leer cada uno de los apellidos en él e inicializar la base de datos con ellos.
+     * @param bd Instancia única de la base de datos. Requerida para incializarla.
+     * @throws IOException Error al leer los archivos, e.g. al momento de leer los nombres o apellidos.
+     */
+    private static void leerApellidos( BaseDatos bd ) throws IOException {
+        try ( FileReader fr = new FileReader( RUTA_APELLIDOS ); BufferedReader br = new BufferedReader( fr )) {
+            String fileContent = br.readLine();
+            while (fileContent != null) {
+                StringTokenizer tokenizador = new StringTokenizer( fileContent, ",");
+                while( tokenizador.hasMoreTokens() )
+                {
+                    bd.addApellido( tokenizador.nextToken() );
+                }
+                fileContent = br.readLine();
+            }
+        } catch (Exception e) {
+            System.out.println("Ha ocurrido un error al leer los apellidos desde la ruta original.");
+            throw new IOException( e );
         }
     }
 }

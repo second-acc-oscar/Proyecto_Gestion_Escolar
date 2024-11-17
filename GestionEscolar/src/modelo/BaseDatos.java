@@ -33,22 +33,22 @@ public class BaseDatos {
     /**
      * Lista que contiene la información de los posibles nombres de estudiantes leída en los archivos CSV.
      */
-    private ArrayList<String> nombres;
+    private ArrayList<String> nombres = new ArrayList<String>();
     
     /**
      * Lista que contiene la información de los posibles apellidos de estudiantes leída en los archivos CSV.
      */
-    private ArrayList<String> apellidos;
+    private ArrayList<String> apellidos = new ArrayList<String>();
     
     /**
      * Lista que contiene la información de las posibles direcciones de etudiantes leída en los archivos CSV.
      */
-    private ArrayList<String> direcciones;
+    private ArrayList<String> direcciones = new ArrayList<String>();
     
     /**
      * Registros de todos los alumnos estudiantes ordinarios de la facultad.
      */
-    private Hashtable<Integer, Alumno> alumnosOrdinarios;
+    private Hashtable<Integer, Alumno> alumnosOrdinarios = new Hashtable<Integer, Alumno>();
     
     /**
      * Registro de todos los alumnos FDU (fuera de usual) dados de alta en el sistema.
@@ -59,17 +59,17 @@ public class BaseDatos {
      * </ol>
      * Se entiende como alumnos FDU por sus siglas "Fuera De Usual".
      */
-    private Hashtable<Integer, Alumno> alumnosFDU;
+    private Hashtable<Integer, Alumno> alumnosFDU = new Hashtable<Integer, Alumno>();
     
     /**
      * Plan de estudios que contiene a los objetos de tipo asignatura de la facultad.
      */
-    private Hashtable<Integer, Asignatura> planDeEstudios;
+    private Hashtable<Integer, Asignatura> planDeEstudios = new Hashtable<Integer, Asignatura>();
     
     /**
      * Usuarios dados de alta en el sistema para poder ingresar mediante sus credenciales.
      */
-    private Hashtable<Integer, Usuario> usuarios;
+    private Hashtable<Integer, Usuario> usuarios = new Hashtable<Integer, Usuario>();
     
     /**
      * Crea una nueva instancia de BaseDatos vacía.
@@ -178,7 +178,7 @@ public class BaseDatos {
      * Utilizado por la clase {@code Archivos} para inflar la información en la base de datos local de los posibles nombres para alumnos, según los archivos leídos.
      * @param nombre El nombre a añadir a la base de datos.
      */
-    protected void addNombre( String nombre ) {
+    public void addNombre( String nombre ) {
         nombres.add( nombre );
     }
     
@@ -186,7 +186,7 @@ public class BaseDatos {
      * Utilizado por la clase {@code Archivos} para inflar la información en la base de datos local de los posibles apellidos para alumnos, según los archivos leídos.
      * @param apellido El apellido a añadir a la base de datos.
      */
-    protected void addApellido( String apellido ) {
+    public void addApellido( String apellido ) {
         apellidos.add( apellido );
     }
     
