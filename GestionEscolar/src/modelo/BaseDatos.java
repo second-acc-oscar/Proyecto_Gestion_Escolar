@@ -13,7 +13,7 @@ import modelo.AppClasses.Usuario;
  * En su responsabilidad contiene únicamente como atributos estructuras que almacenan el grueso de la información para la lógica de la aplicación, entre la que destaca:
  * <ul>
  *   <li>Registros de alumnos.</li>
- *   <li>Tira de materias de la facultad.<\li>
+ *   <li>Tira de materias de la facultad.</li>
  *   <li>Credenciales de ingreso al sistema.</li>
  *   <li>Nombres de alumnos. (CSV)</li>
  *   <li>Apellidos de alumnos. (CSV)</li>
@@ -88,7 +88,7 @@ public class BaseDatos {
     }
     
     /**
-     * Método de uso general que indica el número de alumnos dados de alta en el sistema, utiliza el atributo {@code size] de la estructura que contiene a los alumnos, de manera que se mantiene dinámica en todo momento.
+     * Método de uso general que indica el número de alumnos dados de alta en el sistema, utiliza el atributo {@code size} de la estructura que contiene a los alumnos, de manera que se mantiene dinámica en todo momento.
      * Indica el número de alumnos totales de la facultad a lo largo del tiempo. Ésto incluye tanto alumnos ordinarios como FDU.
      * @return El número de alumnos dados de alta en el sistema.
      */
@@ -97,8 +97,8 @@ public class BaseDatos {
     }
     
     /**
-     * Método de uso general que indica el número de alumnos <b>ordinarios<\b> dados de alta en el sistema, utiliza el atributo {@code size] de la estructura que contiene a los alumnos, de manera que se mantiene dinámica en todo momento.
-     * Indica el número de alumnos <b>ordinarios<\b> dados de alta en la base de datos del sistema.
+     * Método de uso general que indica el número de alumnos <b>ordinarios</b> dados de alta en el sistema, utiliza el atributo {@code size} de la estructura que contiene a los alumnos, de manera que se mantiene dinámica en todo momento.
+     * Indica el número de alumnos <b>ordinarios</b> dados de alta en la base de datos del sistema.
      * @return El número de alumnos ordinarios dados de alta en el sistema.
      */
     public int getNumAlumnosOrdinarios() {
@@ -106,8 +106,8 @@ public class BaseDatos {
     }
     
     /**
-     * Método de uso general que indica el número de alumnos <b>FDU<\b> dados de alta en el sistema, utiliza el atributo {@code size] de la estructura que contiene a los alumnos, de manera que se mantiene dinámica en todo momento.
-     * Indica el número de alumnos <b>FDU<\b> dados de alta en la base de datos del sistema.
+     * Método de uso general que indica el número de alumnos <b>FDU</b> dados de alta en el sistema, utiliza el atributo {@code size} de la estructura que contiene a los alumnos, de manera que se mantiene dinámica en todo momento.
+     * Indica el número de alumnos <b>FDU</b> dados de alta en la base de datos del sistema.
      * @return El número de alumnos FUD dados de alta en el sistema.
      */
     public int getNumAlumnosFDU() {
