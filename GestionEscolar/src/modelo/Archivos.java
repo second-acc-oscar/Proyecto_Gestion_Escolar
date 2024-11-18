@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
+import modelo.AppClasses.Asignatura;
 import modelo.BaseDatos;
 
 /**
@@ -48,6 +49,82 @@ public class Archivos {
      * Ruta en los archivos del proyecto donde se encuentra el archivos de direcciones de domicilio físicas. Se requiere para su lectura. (files/csv/direcciones.csv)
      */
     private static final String RUTA_DIRECCIONES = "files/csv/direcciones.csv";
+    /**
+     * Ruta en los archivos del proyecto donde se encuentra la lista de asignaturas que se deben de leer como objeto.
+     */
+    private static final String RUTA_ASIGNATURAS = "files/materias/";
+    /**
+     * Ruta <b>general</b> en los archivos del proyecto donde se encuentran cada uno de las asignaturas del plan de estudios de la carrera en la facultad.
+     */
+    private static final String RUTA_ASIGNATURAS_ORIGINAL = "files/materias/asignaturas.txt";
+    
+    /**
+     * Método que se encarga de cargar en la base de datos local la información del plan de estudios.
+     * @param bd Instancia única de la base de datos. Requerida para incializarla.
+     * @return {@code true} si no hubo ningún error, {@code false} si es que hubo algún error (controlado) al momento de leer la base de datos desde el sistema de archivos.
+     */
+    public static boolean inicializarBaseDatosPlanDeEstudios( BaseDatos bd ) {
+        try {
+            leerAsignaturas( db );
+        } catch ( Exception e) {
+            System.out.println("Error al inicializar la base de datos.");
+            System.out.println( e.getMessage() );
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Método que se encarga de inicializar todas las asignaturas guardadas en la base de datos implementada mediante archivos. Inicializa una por una todas las asignaturas.
+     * @param bd Instancia única de la base de datos. Requerida para incializarla.
+     * @throws IOException Error al leer los archivos, e.g. al momento de leer un archivo de asignatura.
+     */
+    private static void leerAsignaturas( BaseDatos bd ) throws IOException {
+        String extention = ".txt";
+        String nullArchive = RUTA_ASIGNATURAS + "null" + extention;
+        try ( FileReader fr = new FileReader( RUTA_ASIGNATURAS_ORIGINAL ); BufferedReader br = new BufferedReader( fr ) ) {
+            String fileContent = RUTA_ASIGNATURAS;
+            fileContent += br.readLine();
+            fileContent += extention;
+            while( ! nullArchive.equals( fileContent ) )
+            {
+                Archivos.leerAsignatura( bd, ( fileContent ) );
+                fileContent = RUTA_ASIGNATURAS;
+                fileContent += br.readLine();
+                fileContent += extention;
+            }
+        } catch (Exception e) {
+            System.out.println("Ha ocurrido un error al leer las asignaturas desde la ruta original.");
+            throw new IOException( e );
+        }
+    }
+    
+    /**
+     * Se encarga de inicializar completamente un único objeto de tipo Asignatura a partir de la información de la misma en su archivo correspondiente.
+     * @param bd Instancia única de la base de datos. Requerida para incializarla.
+     * @param fileName El nombre del archivo en el cuál se encuentra la información de la asignatura en específico.
+     * @throws IOException Error al leer los archivos, e.g. no se encuentra el archivo de la asignatura.
+     */
+    private static void leerAsignatura( BaseDatos bd, String fileName ) throws IOException {
+        try ( FileReader fr = new FileReader( fileName ); BufferedReader br = new BufferedReader( fr ) ) {
+            Asignatura asignatura = new Asignatura();
+            
+            asignatura.setNombre( br.readLine() );
+            asignatura.setClave( br.readLine() );
+            asignatura.setCreditos( Integer.parseInt( br.readLine() ) );
+            asignatura.setHorasTotales( Integer.parseInt( br.readLine() ) );
+            asignatura.setSemestre( Integer.parseInt( br.readLine() ) );
+            asignatura.setSeriacionAntecedente( br.readLine() );
+            asignatura.setSeriacionSubsecuente( br.readLine() );
+            asignatura.setObjetivo( br.readLine() );
+            
+            asignatura.imprimirAsignatura();
+            bd.addAsignatura( asignatura.getClave(), asignatura);
+        } catch (Exception e) {
+            System.out.println("Ha ocurrido un error al leer la asignatura: " + fileName );
+            throw new IOException( e );
+        }
+    }
     
     /**
      * Método utilizado al iniciar la aplicación para inflar los atributos de la base de datos necesarios para la lógica de la aplicación.
@@ -62,6 +139,7 @@ public class Archivos {
         } catch ( IOException e ) {
             System.out.println("Error al incializar la base de datos.");
             System.out.println( e.getMessage() );
+            return false;
         }
         return true;
     }

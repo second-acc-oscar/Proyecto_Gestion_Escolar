@@ -80,7 +80,6 @@ public class Alumno {
      * Crea una nueva instancia de Alumno vacía.
      */
     public Alumno() {
-        this.numeroDeInscripcion = 0;
     }
 
     /**
@@ -420,12 +419,6 @@ public class Alumno {
         Alumno.generarHistorialAcademico( alumno );
         
         return alumno;
-    }
-    
-    public static void main(String[] args) {
-        Archivos.inicializarBaseDatos( BaseDatos.getInstance() );
-        Alumno alumno = Alumno.generarAlumnoAleatorio();
-        alumno.imprimirAlumno();
     }
     
     /**

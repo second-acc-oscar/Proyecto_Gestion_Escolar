@@ -64,7 +64,7 @@ public class BaseDatos {
     /**
      * Plan de estudios que contiene a los objetos de tipo asignatura de la facultad.
      */
-    private Hashtable<Integer, Asignatura> planDeEstudios = new Hashtable<Integer, Asignatura>();
+    private Hashtable<String, Asignatura> planDeEstudios = new Hashtable<String, Asignatura>();
     
     /**
      * Usuarios dados de alta en el sistema para poder ingresar mediante sus credenciales.
@@ -142,6 +142,14 @@ public class BaseDatos {
     }
     
     /**
+     * Método que devuelve el número de asignaturas en el plan de estudios dadas de alta en el sistema.
+     * @return El número de asignaturas en el plan de estudios local.
+     */
+    public int getNumAsignaturas() {
+        return planDeEstudios.size();
+    }
+    
+    /**
      * Se utiliza principalmente en la inicialización de objetos de tipo Alumno.
      * El nombre que retorna es completamente aleatorio.
      * @return Uno de los nombres en la base de datos.
@@ -212,6 +220,15 @@ public class BaseDatos {
      */
     public void addAlumnoFDU( Alumno alumnoFDU ) {
         alumnosFDU.put( alumnoFDU.getNumeroDeCuenta(), alumnoFDU );
+    }
+    
+    /**
+     * Mëtodo que añade a la base de datos del sistema, en su almacenamiento del plan de estudios, una asignatura que no se había inicializado previamente.
+     * @param claveAsignatura La clave-valor de la asignatura que se está insertando en la base de datos.
+     * @param asignatura El objeto de tipo asignatura-valor del que consiste la base de datos.
+     */
+    public void addAsignatura( String claveAsignatura, Asignatura asignatura ) {
+        planDeEstudios.put( claveAsignatura, asignatura);
     }
     
     /**
