@@ -1,0 +1,8 @@
+BASES DE DATOS AVANZADAS
+2929
+8
+64
+9
+Base de Datos
+Ninguna
+El alumno diseñará los principales conceptos del modelo cliente-servidor, administración de bases de datos,  así como las bases de datos en internet, para que obtenga los conocimientos integrales en el desarrollo de aplicaciones.

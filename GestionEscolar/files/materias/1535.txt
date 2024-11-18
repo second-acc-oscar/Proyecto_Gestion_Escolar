@@ -1,0 +1,8 @@
+DISEÑO DIGITAL VLSI
+1535
+8
+80
+7
+Diseño Digital Moderno
+Microcomputadoras
+El alumno modificará sistemas digitales de muy alta escala de integración empleando tecnologías modernas basadas en arquitecturas de dispositivos lógicos programables (FPGAs y CPLDs), en lenguajes de descripción y modelado de hardware (VHDL, Verilog, SystemVerilog) y en ambientes integrados de desarrollo (herramientas CAD-EDA).

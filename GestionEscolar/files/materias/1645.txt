@@ -1,0 +1,8 @@
+DISEÑO DIGITAL MODERNO
+1645
+10
+96
+6
+Ninguna
+Diseño Digital Vlsi
+El alumno diseñará sistemas digitales combinacionales y secuenciales con circuitos integrados.

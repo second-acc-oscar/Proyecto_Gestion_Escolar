@@ -1,0 +1,8 @@
+MATEMÁTICAS AVANZADAS
+1424
+8
+64
+4
+Ninguna
+Sistemas y Señales
+El alumno manejará los conceptos fundamentales relacionados con las funciones de variable compleja y el análisis de Fourier, para la resolución de problemas de ingeniería.

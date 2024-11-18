@@ -1,0 +1,8 @@
+FUNDAMENTOS DE ESTADÍSTICA
+1445
+8
+64
+4
+Probabilidad
+Ninguna
+El alumno aplicará los conceptos de la teoría, metodología y las técnicas estadísticas; modelará y resolverá problemas de ingeniería relacionados con el muestreo, representación de datos e inferencia estadística para a toma de decisiones.

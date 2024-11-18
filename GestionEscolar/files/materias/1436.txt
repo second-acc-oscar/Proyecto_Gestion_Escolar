@@ -1,0 +1,8 @@
+PROBABILIDAD
+1436
+8
+64
+3
+Álgebra Lineal
+Fundamentos de Estadística
+El alumno aplicará los conceptos y la metodología básica de la teoría de la probabilidad para analizar algunos fenómenos aleatorios que ocurren en la naturaleza y la sociedad.

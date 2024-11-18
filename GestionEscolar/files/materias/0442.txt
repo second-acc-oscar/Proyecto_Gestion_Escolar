@@ -1,0 +1,8 @@
+LENGUAJES FORMALES Y AUTÓMATAS
+0442
+8
+64
+5
+Ninguna
+Compiladores, Inteligencia Artificial
+El alumno combinará la teoría y la técnica para el diseño de lenguajes de computadora, así como los aspectos formales de la teoría de los lenguajes.

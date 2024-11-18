@@ -1,0 +1,8 @@
+BASES DE DATOS DISTRIBUIDAS
+2947
+8
+64
+10
+Ninguna
+Ninguna
+El alumno diseñará, manipulará y administrará bases de datos distribuidas.

@@ -1,0 +1,8 @@
+ANÁLISIS NUMÉRICO
+1433
+8
+64
+4
+Ecuaciones Diferenciales
+Ninguna
+El alumno utilizará métodos numéricos para obtener soluciones aproximadas de modelos matemáticos. Elegirá el método que le proporcione mínimo error y utilizará equipo de cómputo como herramienta para desarrollar programas.

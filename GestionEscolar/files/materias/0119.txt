@@ -1,0 +1,8 @@
+ESTRUCTURAS DISCRETAS
+0119
+8
+64
+4
+Estructura de Datos y Algoritmos II
+Ninguna
+El alumno inferirá los conceptos matemáticos mediante la computación en la solución de problemas relacionados con el procesamiento de la información, el diseño de computadoras y de programas.

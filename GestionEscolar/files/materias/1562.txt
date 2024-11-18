@@ -1,0 +1,8 @@
+CIRCUITOS ELÉCTRICOS
+1562
+8
+80
+6
+Señales y Sistemas
+Ninguna
+El alumno analizará las principales técnicas de análisis de circuitos eléctricos de parámetros concentrados, así como su resolución de redes eléctricas mediante fundamentos matemáticos de los elementos eléctricos que los constituyen.

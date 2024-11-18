@@ -1,0 +1,8 @@
+COMPUTACIÓN GRÁFICA AVANZADA
+2948
+8
+64
+10
+Ninguna
+Ninguna
+El alumno diseñará algoritmos y métodos para el dibujo de curvas, superficies paramétricas, colisiones y animación para la generación de cómputo gráfico o visualización científica.

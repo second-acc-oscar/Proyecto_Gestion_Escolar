@@ -1,0 +1,8 @@
+FUNDAMENTOS DE SISTEMAS EMBEBIDOS
+1858
+8
+80
+9
+Microcomputadoras
+Ninguna
+El alumno integrará la utilidad de los sistemas embebidos en las aplicaciones actuales mediante la estructura completa de un sistema embebido, tanto en hardware (arquitecturas, plataformas y procesadores) como en software (sistema operativo, programación y aplicaciones).

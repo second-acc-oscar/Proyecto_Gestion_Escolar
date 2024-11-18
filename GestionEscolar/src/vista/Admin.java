@@ -154,8 +154,4 @@ public class Admin {
         Sistema.verificarAccesosS();
         System.out.println("Se elimino el academico solicitado");
     }
-    
-    public static void main(String[] args) {
-        Admin.iniciar();
-    }
 }

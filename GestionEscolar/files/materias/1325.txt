@@ -1,0 +1,8 @@
+ECUACIONES DIFERENCIALES
+1325
+8
+64
+3
+Cálculo Integral
+Análisis Numérico
+El alumno aplicará los conceptos fundamentales de las ecuaciones diferenciales para resolver problemas físicos y geométricos.

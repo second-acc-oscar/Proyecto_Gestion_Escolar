@@ -1,0 +1,8 @@
+DISPOSITIVOS ELECTRÓNICOS
+0138
+10
+96
+5
+Electricidad y Magnetismo
+Ninguna
+El alumno analizará circuitos electrónicos básicos, considerando el modelado y las limitaciones de los dispositivos, e interpretará el funcionamiento de los sistemas electrónicos y sus aplicaciones.

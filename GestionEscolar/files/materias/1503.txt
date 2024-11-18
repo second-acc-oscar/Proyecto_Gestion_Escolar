@@ -1,0 +1,8 @@
+ESTRUCTURA Y PROGRAMACIÓN DE COMPUTADORAS
+1503
+8
+64
+5
+Ninguna
+Sistemas Operativos
+El alumno explicará los conceptos fundamentales de organización y programación de una computadora, que le permitan llevar a cabo el análisis, diseño y desarrollo de programas del sistema, mismos que le facilitarán interactuar de una manera más eficiente con el equipo.
