@@ -118,7 +118,6 @@ public class Archivos {
             asignatura.setSeriacionSubsecuente( br.readLine() );
             asignatura.setObjetivo( br.readLine() );
             
-            asignatura.imprimirAsignatura();
             bd.addAsignatura( asignatura.getClave(), asignatura);
         } catch (Exception e) {
             System.out.println("Ha ocurrido un error al leer la asignatura: " + fileName );
