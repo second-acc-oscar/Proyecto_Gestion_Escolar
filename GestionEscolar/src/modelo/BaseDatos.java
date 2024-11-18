@@ -241,4 +241,22 @@ public class BaseDatos {
         }
         return false;
     }
+    
+    /**
+     * Método que busca el registro de un Alumno por su número de cuenta en la base de datos.
+     * Es indistinta la condición ordinaria o FDU de un alumno, únicamente interesa saber si un registro identificable (número de cuenta) ya se encuentra ocupado por un alumno en la base de datos.
+     * @param numeroDeCuenta El número de cuenta único del alumno que se quiere buscar.
+     * @return {@code null} si el alumno no se encuentra en la base de datos, el objeto tipo de Alumno en caso de que sí se encuentre.
+     */
+    public Alumno buscarAlumno( int numeroDeCuenta ) {
+        if( alumnosOrdinarios.containsKey( numeroDeCuenta ) )
+        {
+            return alumnosOrdinarios.get( numeroDeCuenta );
+        }
+        if( alumnosFDU.containsKey( numeroDeCuenta ) )
+        {
+            return alumnosFDU.get( numeroDeCuenta );
+        }
+        return null;
+    }
 }

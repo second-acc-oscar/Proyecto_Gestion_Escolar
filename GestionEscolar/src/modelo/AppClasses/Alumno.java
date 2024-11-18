@@ -1,5 +1,8 @@
 package modelo.AppClasses;
 
+import controlador.Sistema;
+import java.util.Random;
+
 /**
  * Clase que representa a un alumno genérico de la facultad de ingeniería.
  * 
@@ -75,6 +78,7 @@ public class Alumno {
      * Crea una nueva instancia de Alumno vacía.
      */
     public Alumno() {
+        this.numeroDeInscripcion = 0;
     }
 
     /**
@@ -123,6 +127,16 @@ public class Alumno {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    
+    /**
+     * Método que concatena el nombre (o nombres) del Alumno y lo concatena con sus dos apellidos ordenadamente.
+     * Permite tener fácil acceso desde un punto al nombre del alumno para la persona que lo consulta.
+     * @return El nombre y apellidos del Alumno como una sola cadena.
+     */
+    public String getNombreCompleto() {
+        String espacio = " ";
+        return nombre + espacio + apellidoPaterno + espacio + apellidoMaterno;
     }
 
     /**
@@ -315,6 +329,112 @@ public class Alumno {
      */
     public void setNumeroDeInscripcion(int numeroDeInscripcion) {
         this.numeroDeInscripcion = numeroDeInscripcion;
+    }
+    
+    /**
+     * Módulo que genera un número de cuenta aleatorio de manera automática y aleatoria para la instanciación de nuevos Alumnos.
+     * @return Un número entero con el formato de un número de cuenta.
+     */
+    private static int generarNumeroDeCuenta() {
+        Random rm = new Random();
+        
+        int num = 0;
+        int temp;
+        
+        temp = rm.nextInt(1, 5);
+        num += temp * 1E8;
+        num += (24-2*temp) * 1E7;
+        temp = rm.nextInt( 111111, 888888);
+        num += temp;
+
+        return num;
+    }
+
+    /**
+     * Módulo que genera el correo electrónico de un Alumno a partir de su nombre con un dominio personalizado.
+     * @param nombre El nombre que se utilizará para crear el correo del Alumno.
+     * @param primerApellido El apellido paterno que se utilizará para crear el correo del Alumno.
+     * @param segundoApellido El apellido materno que se utilizará para crear el correo del Alumno.
+     * @return El correo generado en base al nombre completo del Alumno.
+     */
+    private static String generarCorreoElectronico( String nombre, String primerApellido, String segundoApellido ) {
+        String correo = "";
+        String dominio = "@fi.unam";
+        
+        correo += nombre.toLowerCase();
+        correo += ".";
+        correo += primerApellido.toLowerCase();
+        correo += segundoApellido.toLowerCase();
+        correo += dominio;
+        
+        return correo;
+    }
+    
+    /**
+     * Módulo que genera una edad aleatorio para la creación automática de un Alumnos.
+     * @return Un número entero que representa la edad del Alumno.
+     */
+    private static int generarEdad() {
+        Random rm = new Random();
+        
+        return rm.nextInt(17, 11);
+    }
+    
+    /**
+     * Módulo que se encarga de asignar la información sobre el historiala académico de un Alumno, en el módulo también se inicializan los datos del Alumno:
+     * <ul>
+     *   <li>Semestre regular.</li>
+     *   <li>Asignaturas inscritas.</li>
+     *   <li>Asignaturas aprobadas.</li>
+     *   <li>Promedio general.</li>
+     * </ul>
+     * @param alumno El alumno cuyo historial académico debe de inicializarse.
+     */
+    private static void generarHistorialAcademico(Alumno alumno) {
+        
+    }
+    
+    /**
+     * Módulo generador de datos personales para la instanciación de Alumnos automática.
+     * @return Un objeto de tipo Alumno totalmente válido.
+     */
+    public static Alumno generarAlumnoAleatorio() {
+        Alumno alumno = new Alumno();
+        int noCuenta;
+        
+        alumno.setNombre( Sistema.getNombreAleatorio() );
+        alumno.setApellidoPaterno( Sistema.getApellidoAleatorio() );
+        alumno.setApellidoMaterno( Sistema.getApellidoAleatorio() );
+        alumno.setDomicilio( Sistema.getDomicilioAleatorio() );
+        alumno.setCorreo( Alumno.generarCorreoElectronico( alumno.getNombre(), alumno.getApellidoPaterno(), alumno.getApellidoMaterno() ) );
+        alumno.setEdad( Alumno.generarEdad() );
+        noCuenta = Alumno.generarNumeroDeCuenta();
+        while( Sistema.existeAlumno(noCuenta) )
+        {
+            noCuenta = Alumno.generarNumeroDeCuenta();
+        }
+        alumno.setNumeroDeCuenta( noCuenta );
+        alumno.setNumeroDeInscripcion( 0 );
+        Alumno.generarHistorialAcademico( alumno );
+        
+        return alumno;
+    }
+    
+    /**
+     * Método que permite la impresión en pantalla de manera amigable para el usuario toda la información pertinente sobre un Alumno en específico.
+     */
+    public void imprimirAlumno() {
+        System.out.print("Los datos del alumno son los siguientes:"
+                + "\n\tNombre:\t" + this.getNombreCompleto()
+                + "\n\tNo. de cuenta:\t" + this.getNumeroDeCuenta() 
+                + "\n\tDomicilio:\t" + this.getDomicilio() 
+                + "\n\tCorreo:\t" + this.getCorreo() 
+                + "\n\tEdad:\t" + this.getEdad() + " años."
+                + "\n\tSemestre regular:\t" + this.getSemestreRegular() 
+                + "\n\tEs regular:\t" + (this.getAsignaturasAprobadas() == 5*this.getSemestreRegular() ? "Sí" : "No") 
+                + "\n\tAsignaturas inscritas:\t" + this.getAsignaturasInscritas()
+                + "\n\tAsignaturas aprobadas:\t" + this.getAsignaturasAprobadas()
+                + "\n\tNo. inscripción:\t" + ( this.getNumeroDeInscripcion() > 0 ? this.getNumeroDeInscripcion(): ( this.getNumeroDeInscripcion() == -1 ? "N/A" : "No disponible" ) )  );
     }
     
     /**
