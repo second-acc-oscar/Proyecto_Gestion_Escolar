@@ -44,6 +44,10 @@ public class Archivos {
      * Ruta en los archivos del proyecto donde se encuentra el archivos de apellidos. Se requiere para su lectura. (files/csv/apellidos.csv)
      */
     private static final String RUTA_APELLIDOS = "files/csv/apellidos.csv";
+    /**
+     * Ruta en los archivos del proyecto donde se encuentra el archivos de direcciones de domicilio físicas. Se requiere para su lectura. (files/csv/direcciones.csv)
+     */
+    private static final String RUTA_DIRECCIONES = "files/csv/direcciones.csv";
     
     /**
      * Método utilizado al iniciar la aplicación para inflar los atributos de la base de datos necesarios para la lógica de la aplicación.
@@ -54,6 +58,10 @@ public class Archivos {
         try {
             leerNombres( db );
             leerApellidos( db );
+            leerDirecciones( db );
+            System.out.println("Nombres:" + bd.getNumNombres() );
+            System.out.println("Apellidos:" + bd.getNumApellidos() );
+            System.out.println("Direcciones: " + bd.getNumDirecciones() );
         } catch ( IOException e ) {
             System.out.println("Error al incializar la base de datos.");
             System.out.println( e.getMessage() );
@@ -88,7 +96,7 @@ public class Archivos {
     private static void leerApellidos( BaseDatos bd ) throws IOException {
         try ( FileReader fr = new FileReader( RUTA_APELLIDOS ); BufferedReader br = new BufferedReader( fr )) {
             String fileContent = br.readLine();
-            while (fileContent != null) {
+            while( fileContent != null ) {
                 StringTokenizer tokenizador = new StringTokenizer( fileContent, ",");
                 while( tokenizador.hasMoreTokens() )
                 {
@@ -98,6 +106,25 @@ public class Archivos {
             }
         } catch (Exception e) {
             System.out.println("Ha ocurrido un error al leer los apellidos desde la ruta original.");
+            throw new IOException( e );
+        }
+    }
+
+    /**
+     * Abre el archivo "files/csv/direcciones.csv" para leer cada uno de las direcciones en él e inicializar la base de datos con ellas.
+     * @param bd Instancia única de la base de datos. Requerida para incializarla.
+     * @throws IOException Error al leer los archivos, e.g. no se encontró el archivo en la ruta especificada.
+     */
+    private static void leerDirecciones( BaseDatos bd ) throws IOException {
+        try ( FileReader fr = new FileReader( RUTA_DIRECCIONES ); BufferedReader br = new BufferedReader( fr )) {
+            String fileContent = br.readLine();
+            while( fileContent != null )
+            {
+                bd.addDireccion( fileContent );
+                fileContent = br.readLine();
+            }
+        } catch (Exception e) {
+            System.out.println("Ha ocurrido un error al leer las direcciones físicas desde la ruta original.");
             throw new IOException( e );
         }
     }

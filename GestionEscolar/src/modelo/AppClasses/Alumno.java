@@ -2,6 +2,8 @@ package modelo.AppClasses;
 
 import controlador.Sistema;
 import java.util.Random;
+import modelo.Archivos;
+import modelo.BaseDatos;
 
 /**
  * Clase que representa a un alumno genérico de la facultad de ingeniería.
@@ -344,7 +346,7 @@ public class Alumno {
         temp = rm.nextInt(1, 5);
         num += temp * 1E8;
         num += (24-2*temp) * 1E7;
-        temp = rm.nextInt( 111111, 888888);
+        temp = rm.nextInt( 111111, 1000000);
         num += temp;
 
         return num;
@@ -377,7 +379,7 @@ public class Alumno {
     private static int generarEdad() {
         Random rm = new Random();
         
-        return rm.nextInt(17, 11);
+        return rm.nextInt(17, 26);
     }
     
     /**
@@ -420,11 +422,17 @@ public class Alumno {
         return alumno;
     }
     
+    public static void main(String[] args) {
+        Archivos.inicializarBaseDatos( BaseDatos.getInstance() );
+        Alumno alumno = Alumno.generarAlumnoAleatorio();
+        alumno.imprimirAlumno();
+    }
+    
     /**
      * Método que permite la impresión en pantalla de manera amigable para el usuario toda la información pertinente sobre un Alumno en específico.
      */
     public void imprimirAlumno() {
-        System.out.print("Los datos del alumno son los siguientes:"
+        System.out.println("\nLos datos del alumno son los siguientes:"
                 + "\n\tNombre:\t" + this.getNombreCompleto()
                 + "\n\tNo. de cuenta:\t" + this.getNumeroDeCuenta() 
                 + "\n\tDomicilio:\t" + this.getDomicilio() 
