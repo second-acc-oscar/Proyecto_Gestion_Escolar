@@ -83,7 +83,7 @@ public class Admin {
                     System.out.println("Ingresa la clave del academico a eliminar: ");
                     String clave = lectura.next();
                     do{
-                        tmpCl = verificarClaveRepetida(clave);
+                        tmpCl = verificarClaveExistente(clave);
                         if(tmpCl == false)
                             System.out.println("Esa clave no existe, use una diferente");
                         else
@@ -98,6 +98,7 @@ public class Admin {
                 
                 case 6 -> {
                     op = 6;
+                    System.out.println("Saliendo del sistema");
                 }
                 
                 default -> {
@@ -119,8 +120,8 @@ public class Admin {
      * @param clave
      * @return 
      */
-    private static boolean verificarClaveRepetida(String clave){
-        return Sistema.verificarClaveRepetida(clave);
+    private static boolean verificarClaveExistente(String clave){
+        return Sistema.verificarClaveExistenteS(clave);
     }
     
     /**

@@ -47,53 +47,50 @@ public class PersonalAcademico {
                 }
                 
                 case 2 -> {
-                    boolean tmpCl;
                     System.out.println("Ingresa el nombre del estudiante a agregar: ");
                     String nombre = lectura.next();
-                    System.out.println("Ingresa la clave del estudiante a agregar: ");
-                    String clave = lectura.next();
-                    do{
-                        tmpCl = verificarClaveRepetida(clave);
-                        if(tmpCl == true)
-                            System.out.println("Esa clave ya existe, use una diferente");
-                        else
-                            clave = lectura.next();
-                    }while(tmpCl != false);
-                    System.out.println("Ingresa la contraseña del estudiante a agregar: ");
-                    String contrasena = lectura.next();
-                    agregarAcademicos(nombre, clave, contrasena);
+                    System.out.println("Ingresa la apellido del estudiante a agregar: ");
+                    String apellido = lectura.next();
+                    System.out.println("Ingresa la domicilio del estudiante a agregar: ");
+                    String domicilio = lectura.next();
+                    System.out.println("Ingresa la correo del estudiante a agregar: ");
+                    String correo = lectura.next();
+                    System.out.println("Ingresa la edad del estudiante a agregar: ");
+                    int edad = lectura.nextInt();
+                    agregarEstudiantes(nombre, apellido, domicilio, correo, edad);
                 }
 
                 case 3 -> {
-                    boolean tmpCl;
-                    System.out.println("Ingresa la clave del estudiante a modificar: ");
+                    boolean tmpNC;
+                    System.out.println("Ingresa el numero de cuenta del estudiante a modificar: ");
                     String clave = lectura.next();
                     do{
-                        tmpCl = verificarClaveRepetida(clave);
-                        if(tmpCl == false)
-                            System.out.println("Esa clave no existe, use una diferente");
+                        tmpNC = verificarClaveRepetida(clave);
+                        if(tmpNC == false)
+                            System.out.println("Ese numero de cuenta no existe, use uno diferente");
                         else
                             clave = lectura.next();
-                    }while(tmpCl != true);
-                    modificarAcademicos(clave);
+                    }while(tmpNC != true);
+                    modificarEstudiante(clave);
                 }
 
                 case 4 -> { 
-                    boolean tmpCl;
-                    System.out.println("Ingresa la clave del academico a eliminar: ");
+                    boolean tmpNC;
+                    System.out.println("Ingresa el numero de cuenta del estudiante a modificar: ");
                     String clave = lectura.next();
                     do{
-                        tmpCl = verificarClaveRepetida(clave);
-                        if(tmpCl == false)
-                            System.out.println("Esa clave no existe, use una diferente");
+                        tmpNC = verificarClaveRepetida(clave);
+                        if(tmpNC == false)
+                            System.out.println("Ese numero de cuenta no existe, use uno diferente");
                         else
                             clave = lectura.next();
-                    }while(tmpCl != true);
-                    eliminarAcademicos(clave);
+                    }while(tmpNC != true);
+                    eliminarEstudiante(clave);
                 }
                 
                 case 5 -> {
                     op = 5;
+                    System.out.println("Saliendo del sistema");
                 }
                 
                 default -> {
@@ -115,32 +112,32 @@ public class PersonalAcademico {
      * @param clave
      * @return 
      */
-    private static boolean verificarClaveRepetida(String clave){
-        return Sistema.verificarClaveRepetida(clave);
+    private static boolean verificarnNumeroDeCuentaRepetida(String clave){
+        return Sistema.verificarNumeroDeCuentaRepetido(clave);
     }
     
     /**
      * Metodo encargado de solicitar el sistema que agregue un estudiante 
      */
-    private static void agregarAcademicos(String nombre, String clave, String contrasena){
-        Sistema.agregarAcademicoS(nombre, clave, contrasena);
-        System.out.println("Se agrego el academico solicitado");
+    private static void agregarEstudiantes(String nombre, String clave, String contrasena, String correo, int edad){
+        Sistema.agregarEstudianteS(nombre, clave, contrasena);
+        System.out.println("Se agrego el estudiante solicitado");
     }
     
     /**
      * Metodo encargado de solicitar el sistema que modifique el estudiante solicitado
      */
-    private static void modificarAcademicos(String clave){
-        Sistema.modificarAcademicoS(clave);
-        System.out.println("Se elimino el academico solicitado");
+    private static void modificarEstudiante(String clave){
+        Sistema.modificarEstudianteS(clave);
+        System.out.println("Se elimino el estudiante solicitado");
     }
     
     /**
      * Metodo encargado de solicitar el sistema que elimine el estudiante solicitado
      */ 
-    private static void eliminarAcademicos(String clave){
-        Sistema.eliminarAcademicoS(clave);
-        System.out.println("Se elimino el academico solicitado");
+    private static void eliminarEstudiante(String clave){
+        Sistema.eliminarEstudianteS(clave);
+        System.out.println("Se elimino el estudiante solicitado");
     }
     
 }
