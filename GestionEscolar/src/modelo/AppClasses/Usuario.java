@@ -2,7 +2,7 @@ package modelo.AppClasses;
 
 /**
  * Clase que contiene las credenciales de acceso al sistema de un usuario autorizado.
- * @author Oscar Rojas
+ * @author Oscar Rojas Cabrera 
  */
 public class Usuario {
     /**
