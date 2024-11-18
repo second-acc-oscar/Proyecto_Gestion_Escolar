@@ -54,14 +54,11 @@ public class Archivos {
      * @param bd Instancia única de la base de datos. Requerida para incializarla.
      * @return {@code true} si no hubo ningún error, {@code false} si es que hubo algún error (controlado) al momento de leer la base de datos desde el sistema de archivos.
      */
-    public static boolean inicializarBaseDatos( BaseDatos bd ) {
+    public static boolean inicializarBaseDatosGeneracionAlumnos( BaseDatos bd ) {
         try {
             leerNombres( db );
             leerApellidos( db );
             leerDirecciones( db );
-            System.out.println("Nombres:" + bd.getNumNombres() );
-            System.out.println("Apellidos:" + bd.getNumApellidos() );
-            System.out.println("Direcciones: " + bd.getNumDirecciones() );
         } catch ( IOException e ) {
             System.out.println("Error al incializar la base de datos.");
             System.out.println( e.getMessage() );
