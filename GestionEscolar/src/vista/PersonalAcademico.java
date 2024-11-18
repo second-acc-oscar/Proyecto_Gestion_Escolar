@@ -23,7 +23,7 @@ public class PersonalAcademico {
          * Fragmento de codigo encargado de solicitar al usuario la accsion deseada haciendo uso de un while y un switch
          */
         System.out.println("Hola Academico\n ¿Que cambio quiere hacer?");
-        System.out.println("1)Consultar estudiantes \n2)Agregar algún estudiantes \n3)Modificar algun estudiantes \n4)Eliminar algun estudiantes \n5)Salir");
+        System.out.println("1)Consultar estudiantes \n2)Agregar algún estudiantes \n3)Modificar algun estudiantes \n4)Eliminar algun estudiantes \n5)Visualizar FDU \6)Convertitr alumnoen FDU \n7)Salir");
         try {
             Scanner lectura = new Scanner(System.in);
             int op = lectura.nextInt();
@@ -40,7 +40,7 @@ public class PersonalAcademico {
      */
     private static void imprimirMenu(int op){
         Scanner lectura = new Scanner(System.in);
-        while(op != 5){    
+        while(op != 7){    
             switch(op){
                 case 1 -> {
                     consultarEstudiantes();
@@ -63,33 +63,51 @@ public class PersonalAcademico {
                 case 3 -> {
                     boolean tmpNC;
                     System.out.println("Ingresa el numero de cuenta del estudiante a modificar: ");
-                    String clave = lectura.next();
+                    int numeroCuenta = lectura.nextInt();
                     do{
-                        tmpNC = verificarClaveRepetida(clave);
+                        tmpNC = verificarNumeroCuenta(numeroCuenta);
                         if(tmpNC == false)
                             System.out.println("Ese numero de cuenta no existe, use uno diferente");
                         else
-                            clave = lectura.next();
+                            numeroCuenta = lectura.nextInt();
                     }while(tmpNC != true);
-                    modificarEstudiante(clave);
+                    modificarEstudiante(numeroCuenta);
                 }
 
                 case 4 -> { 
                     boolean tmpNC;
                     System.out.println("Ingresa el numero de cuenta del estudiante a modificar: ");
+                    int numeroCuenta = lectura.nextInt();
+                    do{
+                        tmpNC = verificarNumeroCuenta(numeroCuenta);
+                        if(tmpNC == false)
+                            System.out.println("Ese numero de cuenta no existe, use uno diferente");
+                        else
+                            numeroCuenta = lectura.nextInt();
+                    }while(tmpNC != true);
+                    eliminarEstudiante(numeroCuenta);
+                }
+                
+                case 5 -> {
+                    consultarFDU();
+                }
+                
+                case 6 -> {
+                    boolean tmpNC;
+                    System.out.println("Ingresa el numero de cuenta del estudiante al que quiere volver un FDU: ");
                     String clave = lectura.next();
                     do{
-                        tmpNC = verificarClaveRepetida(clave);
+                        tmpNC = verificarNumeroCuenta(clave);
                         if(tmpNC == false)
                             System.out.println("Ese numero de cuenta no existe, use uno diferente");
                         else
                             clave = lectura.next();
                     }while(tmpNC != true);
-                    eliminarEstudiante(clave);
+                    volverEnFDU(clave);
                 }
                 
-                case 5 -> {
-                    op = 5;
+                case 7 -> {
+                    op = 7;
                     System.out.println("Saliendo del sistema");
                 }
                 
@@ -101,42 +119,49 @@ public class PersonalAcademico {
     }
     
     /**
-     * Metodo encargado de solicitar el sistema que imprima la lista de los academicos registrados
+     * Metodo encargado de solicitar el sistema que imprima la lista de los Estudiantes registrados
      */
     private static void consultarEstudiantes() {
         Sistema.imprimirEstudiantes();
     }
     
     /**
-     * Metodo encargado de informar si la clave ingresada existe
+     * Metodo encargado de solicitar el sistema que imprima la lista de los FDU registrados
+     */
+    private static void consultarFDU() {
+        Sistema.imprimirFDU();
+    }
+    
+    /**
+     * Metodo encargado de informar si el numero de cuenta ingresado existe
      * @param clave
      * @return 
      */
-    private static boolean verificarnNumeroDeCuentaRepetida(String clave){
-        return Sistema.verificarNumeroDeCuentaRepetido(clave);
+    private static boolean verificarNumeroCuenta(int numeroCuenta){
+        return Sistema.verificarNumeroCuenta(clave);
     }
     
     /**
      * Metodo encargado de solicitar el sistema que agregue un estudiante 
      */
     private static void agregarEstudiantes(String nombre, String clave, String contrasena, String correo, int edad){
-        Sistema.agregarEstudianteS(nombre, clave, contrasena);
+        Sistema.agregarEstudianteS(nombre, clave, contrasena, correo, edad);
         System.out.println("Se agrego el estudiante solicitado");
     }
     
     /**
      * Metodo encargado de solicitar el sistema que modifique el estudiante solicitado
      */
-    private static void modificarEstudiante(String clave){
-        Sistema.modificarEstudianteS(clave);
+    private static void modificarEstudiante(int numeroCuenta){
+        Sistema.modificarEstudianteS(numeroCuenta);
         System.out.println("Se elimino el estudiante solicitado");
     }
     
     /**
      * Metodo encargado de solicitar el sistema que elimine el estudiante solicitado
      */ 
-    private static void eliminarEstudiante(String clave){
-        Sistema.eliminarEstudianteS(clave);
+    private static void eliminarEstudiante(int numeroCuenta){
+        Sistema.eliminarEstudianteS(numeroCuenta);
         System.out.println("Se elimino el estudiante solicitado");
     }
     

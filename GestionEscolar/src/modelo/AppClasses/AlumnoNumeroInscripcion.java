@@ -45,6 +45,6 @@ public class AlumnoNumeroInscripcion {
     }
     
     public void Merge(float indicadorEscolar){
-        MergeSort(indicadorEscolar);
+        MergeSort.iniciarMergeSort(indicadorEscolar);
     }
 }
