@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 import modelo.AppClasses.Asignatura;
+import modelo.AppClasses.Usuario;
 import modelo.BaseDatos;
 
 /**
@@ -38,6 +39,10 @@ public class Archivos {
     private static BaseDatos db = BaseDatos.getInstance();
     
     /**
+     * Extensión utilizada para los archivos estándar en la base de datos.
+     */
+    private static final String EXTENSION = ".txt";
+    /**
      * Ruta en los archivos del proyecto donde se encuentra el archivos de nombres. Se requiere para su lectura. (files/csv/nombres.csv)
      */
     private static final String RUTA_NOMBRES = "files/csv/nombres.csv";
@@ -57,6 +62,75 @@ public class Archivos {
      * Ruta <b>general</b> en los archivos del proyecto donde se encuentran cada uno de las asignaturas del plan de estudios de la carrera en la facultad.
      */
     private static final String RUTA_ASIGNATURAS_ORIGINAL = "files/materias/asignaturas.txt";
+    /**
+     * Ruta en los arhcivos del proyecto donde se encuentra la lista de usuarios que tienen credenciales válidas para iniciar sesión en el sistema.
+     */
+    private static final String RUTA_USUARIOS = "files/usuarios/";
+    /**
+     * Ruta <b>general</b> en los archivos del proyecto donde se encuentren cada uno de los registros de las credenciales que tienen acceso a la aplicación.
+     */
+    private static final String RUTA_USUARIOS_ORIGINAL = "files/usuarios/usuarios.txt";
+    
+    /**
+     * Método que infla la base de datos en su campo de Usuarios dados de alta en el sistema a través de la implementación de base de datos en archivos.
+     * @param bd Instancia única de la base de datos. Requerida para incializarla.
+     * @return {@code true} si no hubo ningún error, {@code false} si es que hubo algún error (controlado) al momento de leer la base de datos desde el sistema de archivos.
+     */
+    public static boolean inicializarBaseDatosUsuarios( BaseDatos bd ) {
+        try {
+            leerUsuarios( bd );
+        } catch (Exception e) {
+            System.out.println("Error al inicializar la base de datos.");
+            System.out.println( e.getMessage() );
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Método que lee individualmente cada objeto de tipo usuario mediante la dirección donde se encuentran todos los usuarios registrados.
+     * @param bd Instancia única de la base de datos. Requerida para incializarla.
+     * @throws IOException {@code true} si no hubo ningún error, {@code false} si es que hubo algún error (controlado) al momento de leer la base de datos desde el sistema de archivos.
+     */
+    private static void leerUsuarios( BaseDatos bd ) throws IOException {
+        String nullArchive = RUTA_USUARIOS + "null" + EXTENSION;
+        try ( FileReader fr = new FileReader( RUTA_USUARIOS_ORIGINAL ); BufferedReader br = new BufferedReader( fr ) ) {
+            String fileContent = RUTA_USUARIOS;
+            fileContent += br.readLine();
+            fileContent += EXTENSION;
+            while( ! nullArchive.equals( fileContent ) )
+            {
+                Archivos.leerUsuario( bd, fileContent );
+                fileContent = RUTA_USUARIOS;
+                fileContent += br.readLine();
+                fileContent += EXTENSION;
+            }
+        } catch (Exception e) {
+            System.out.println("Ha ocurrido un error al leer los usuarios de la ruta original.");
+            throw new IOException( e );
+        }
+    }
+    
+    /**
+     * Lee individualmente todos los campos de un Usuario registrado previamente.
+     * @param bd Instancia única de la base de datos. Requerida para incializarla.
+     * @param fileName Nombre del archivo en el cual se encuentra la información del Usuario a inflar.
+     * @throws IOException 
+     */
+    private static void leerUsuario( BaseDatos bd, String fileName ) throws IOException {
+        try ( FileReader fr = new FileReader ( fileName ); BufferedReader br = new BufferedReader( fr ) ) {
+            Usuario usuario = new Usuario();
+            
+            usuario.setNombreUsuario( br.readLine() );
+            usuario.setClave( br.readLine() );
+            usuario.setPassword( br.readLine() );
+            
+            bd.addUsuario( usuario.getClave(), usuario);
+        } catch (Exception e) {
+            System.out.println("Ha ocurrido un error al leer el usuario: " + fileName );
+            throw new IOException( e );
+        }
+    }
     
     /**
      * Método que se encarga de cargar en la base de datos local la información del plan de estudios.
@@ -80,18 +154,17 @@ public class Archivos {
      * @throws IOException Error al leer los archivos, e.g. al momento de leer un archivo de asignatura.
      */
     private static void leerAsignaturas( BaseDatos bd ) throws IOException {
-        String extention = ".txt";
-        String nullArchive = RUTA_ASIGNATURAS + "null" + extention;
+        String nullArchive = RUTA_ASIGNATURAS + "null" + EXTENSION;
         try ( FileReader fr = new FileReader( RUTA_ASIGNATURAS_ORIGINAL ); BufferedReader br = new BufferedReader( fr ) ) {
             String fileContent = RUTA_ASIGNATURAS;
             fileContent += br.readLine();
-            fileContent += extention;
+            fileContent += EXTENSION;
             while( ! nullArchive.equals( fileContent ) )
             {
-                Archivos.leerAsignatura( bd, ( fileContent ) );
+                Archivos.leerAsignatura( bd, fileContent );
                 fileContent = RUTA_ASIGNATURAS;
                 fileContent += br.readLine();
-                fileContent += extention;
+                fileContent += EXTENSION;
             }
         } catch (Exception e) {
             System.out.println("Ha ocurrido un error al leer las asignaturas desde la ruta original.");

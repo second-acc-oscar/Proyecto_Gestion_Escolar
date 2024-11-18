@@ -12,5 +12,11 @@ public class Principal {
         BaseDatos bd = BaseDatos.getInstance();
         Archivos.inicializarBaseDatosPlanDeEstudios( bd );
         Archivos.inicializarBaseDatosGeneracionAlumnos( bd );
+        Archivos.inicializarBaseDatosUsuarios( bd );
+        System.out.println("Asignaturas: " + bd.getNumAsignaturas());
+        System.out.println("Nombres: " + bd.getNumNombres());
+        System.out.println("Apellidos: " + bd.getNumApellidos());
+        System.out.println("Direcciones: " + bd.getNumDirecciones());
+        System.out.println("Usuarios: " + bd.getNumUsuarios());
     }
 }

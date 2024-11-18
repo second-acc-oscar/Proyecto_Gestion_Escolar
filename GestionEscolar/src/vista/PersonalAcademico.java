@@ -164,5 +164,4 @@ public class PersonalAcademico {
         Sistema.eliminarEstudianteS(numeroCuenta);
         System.out.println("Se elimino el estudiante solicitado");
     }
-    
 }

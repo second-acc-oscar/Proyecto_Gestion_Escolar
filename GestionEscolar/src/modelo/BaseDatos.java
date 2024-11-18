@@ -69,7 +69,7 @@ public class BaseDatos {
     /**
      * Usuarios dados de alta en el sistema para poder ingresar mediante sus credenciales.
      */
-    private Hashtable<Integer, Usuario> usuarios = new Hashtable<Integer, Usuario>();
+    private Hashtable<String, Usuario> usuarios = new Hashtable<String, Usuario>();
     
     /**
      * Crea una nueva instancia de BaseDatos vacía.
@@ -147,6 +147,14 @@ public class BaseDatos {
      */
     public int getNumAsignaturas() {
         return planDeEstudios.size();
+    }
+    
+    /**
+     * Método que devuelve el número de usuarios dados de alta en el sistema para su acceso.
+     * @return El número de usuarios en el ssitema.
+     */
+    public int getNumUsuarios() {
+        return usuarios.size();
     }
     
     /**
@@ -229,6 +237,15 @@ public class BaseDatos {
      */
     public void addAsignatura( String claveAsignatura, Asignatura asignatura ) {
         planDeEstudios.put( claveAsignatura, asignatura);
+    }
+    
+    /**
+     * Método que añade a la base de datos del sistema un objeto de tipo usuario.
+     * @param claveUsuario La clave identificable del usuario.
+     * @param usuario El objeto de tipo usuario que se añade como valor a la colección.
+     */
+    public void addUsuario( String claveUsuario, Usuario usuario ) {
+        usuarios.put( claveUsuario, usuario);
     }
     
     /**
