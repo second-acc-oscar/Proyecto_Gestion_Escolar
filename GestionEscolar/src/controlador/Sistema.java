@@ -49,4 +49,13 @@ public class Sistema {
     public static boolean existeAlumno( int numeroDeCuenta ) {
         return bd.buscarAlumno( numeroDeCuenta ) != null ? true : false;
     }
+    
+    /**
+     * Interfaz que hace una petición a la base de datos para obtener el nombre de una asignatura de la que se conoce su clave única.
+     * @param claveAsignatura La clave de la asignatura que se quiere buscar.
+     * @return Una cadena con el nombre de la asignatura.
+     */
+    public static String getNombreAsignatura( String claveAsignatura ) {
+        return bd.getNombreAsignatura( claveAsignatura );
+    }
 }

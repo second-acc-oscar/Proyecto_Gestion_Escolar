@@ -64,7 +64,7 @@ public class BaseDatos {
     /**
      * Plan de estudios que contiene a los objetos de tipo asignatura de la facultad.
      */
-    private Hashtable<String, Asignatura> planDeEstudios = new Hashtable<String, Asignatura>();
+    private Hashtable<String, Asignatura> asignaturas = new Hashtable<String, Asignatura>();
     
     /**
      * Usuarios dados de alta en el sistema para poder ingresar mediante sus credenciales.
@@ -146,7 +146,7 @@ public class BaseDatos {
      * @return El número de asignaturas en el plan de estudios local.
      */
     public int getNumAsignaturas() {
-        return planDeEstudios.size();
+        return asignaturas.size();
     }
     
     /**
@@ -188,6 +188,55 @@ public class BaseDatos {
         Random rm = new Random();
         int idx = rm.nextInt( getNumDirecciones() );
         return direcciones.get( idx );
+    }
+    
+    /**
+     * Método para buscar un Alumno genérico en la base de datos.
+     * Por genérico se entiende que no hay distinción sobre si es FDU u ordinario, pues busca en ambas colecciones.
+     * @param numeroCuenta El número de cuenta del alumno que se quiere buscar.
+     * @return El Alumno encontrado, o {@code null} si el Alumno especificado no existe en la base de datos.
+     */
+    public Alumno getAlumno( int numeroCuenta ) {
+        Alumno alumno;
+        alumno = alumnosOrdinarios.get( numeroCuenta );
+        if( alumno == null )
+            return alumnosFDU.get( numeroCuenta );
+        return alumno;
+    }
+    
+    /**
+     * Método que regresa el objeto de tipo Alumno especificado como alumno ordinario.
+     * @param numeroCuenta El número de cuenta del alumno que se quiere buscar.
+     * @return El Alumno encontrado, o {@code null} si el Alumno especificado no existe en la base de datos.
+     */
+    public Alumno getAlumnoOrdinario( int numeroCuenta ) {
+        return alumnosOrdinarios.get( numeroCuenta );
+    }
+    
+    /**
+     * Método que regresa el objeto de tipo Alumno especificado como alumno FDU.
+     * @param numeroCuenta El número de cuenta del alumno que se quiere buscar.
+     * @return El Alumno encontrado, o {@code null} si el Alumno especificado no existe en la base de datos.
+     */
+    public Alumno getAlumnoFDU( int numeroCuenta ) {
+        return alumnosFDU.get( numeroCuenta );
+    }
+    
+    /**
+     * Método que regresa el objeto de tipo Asignatura especificado.
+     * @param clave La clave de la Asignatura que se desea obtener.
+     * @return La Asignatura encontrada, o {@code null} si la Asignatura especificado no existe en la base de datos.
+     */
+    public Asignatura getAsignatura( String clave ) {
+        return asignaturas.get( clave );
+    }
+    
+    public String getNombreAsignatura( String clave ) {
+        Asignatura asignatura = asignaturas.get( clave );
+        if( asignatura == null )
+            return null;
+        else
+            return asignatura.getNombre();
     }
     
     /**
@@ -236,7 +285,7 @@ public class BaseDatos {
      * @param asignatura El objeto de tipo asignatura-valor del que consiste la base de datos.
      */
     public void addAsignatura( String claveAsignatura, Asignatura asignatura ) {
-        planDeEstudios.put( claveAsignatura, asignatura);
+        asignaturas.put( claveAsignatura, asignatura);
     }
     
     /**

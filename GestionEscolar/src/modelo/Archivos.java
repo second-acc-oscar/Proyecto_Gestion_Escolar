@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 import modelo.AppClasses.Asignatura;
+import modelo.AppClasses.PlanDeEstudios;
 import modelo.AppClasses.Usuario;
 import modelo.BaseDatos;
 
@@ -191,6 +192,7 @@ public class Archivos {
             asignatura.setSeriacionSubsecuente( br.readLine() );
             asignatura.setObjetivo( br.readLine() );
             
+            PlanDeEstudios.addAsignatura( asignatura.getSemestre(), asignatura.getClave() );
             bd.addAsignatura( asignatura.getClave(), asignatura);
         } catch (Exception e) {
             System.out.println("Ha ocurrido un error al leer la asignatura: " + fileName );

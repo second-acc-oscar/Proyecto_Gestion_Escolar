@@ -53,5 +53,4 @@ public class Login {
     private static boolean verificarContrasenaCoincide(String contrasena, String clave) {
         return Sistema.verificarContrasenaCoincideS();
     }
-    
 }

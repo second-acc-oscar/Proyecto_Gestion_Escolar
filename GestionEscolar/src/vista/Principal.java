@@ -1,5 +1,6 @@
 package vista;
 
+import modelo.AppClasses.PlanDeEstudios;
 import modelo.Archivos;
 import modelo.BaseDatos;
 
@@ -18,5 +19,6 @@ public class Principal {
         System.out.println("Apellidos: " + bd.getNumApellidos());
         System.out.println("Direcciones: " + bd.getNumDirecciones());
         System.out.println("Usuarios: " + bd.getNumUsuarios());
+//        PlanDeEstudios.imprimir();
     }
 }
