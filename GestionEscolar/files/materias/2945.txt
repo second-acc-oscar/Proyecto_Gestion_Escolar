@@ -1,8 +1,0 @@
-ADMINISTRACION DE SERVICIOS DE INTERNET
-2945
-8
-64
-10
-Ninguna
-Ninguna
-El alumno diseñará las características, operación y configuración de los servicios de internet para aplicarlo en la administración de diferentes organizaciones.

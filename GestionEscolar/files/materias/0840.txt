@@ -1,8 +1,0 @@
-SISTEMAS OPERATIVOS
-0840
-8
-64
-6
-Estructura y Programación de Computadoras
-Ninguna
-El alumno identificará al sistema operativo como un elemento clave en la administración de los recursos de un equipo de cómputo para mejorar el desempeño de cualquier recurso del sistema.

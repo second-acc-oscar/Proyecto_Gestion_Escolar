@@ -1,8 +1,0 @@
-ESTRUCTURA DE DATOS Y ALGORITMOS I
-1227
-10
-96
-2
-Fundamentos de Programación
-Programación Orientada a Objetos, Estructura de Datos y Algoritmos II
-El alumno analizará problemas de almacenamiento, recuperación y ordenamiento de datos y algoritmos, utilizando las estructuras para representarlos en código y las técnicas de operación más eficientes.

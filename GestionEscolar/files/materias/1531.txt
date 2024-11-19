@@ -1,8 +1,0 @@
-INGENIERÍA DE SOFTWARE
-1531
-8
-64
-5
-Ninguna
-Administración de Proyectos de Software
-El alumno organizará con un enfoque sistemático los requerimientos, el desarrollo, la operación y la creación del software, como también el mantenimiento y su documentación.

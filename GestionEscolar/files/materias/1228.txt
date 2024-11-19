@@ -1,8 +1,0 @@
-MECÁNICA
-1228
-12
-96
-2
-Cálculo y Geometría Analítica
-Ninguna
-El alumno describirá los elementos y principios fundamentales de la mecánica clásica newtoniana; analizará y resolverá problemas de equilibrio y de dinámica de partículas.

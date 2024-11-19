@@ -1,8 +1,0 @@
-ARQUITECTURA CLIENTE SERVIDOR
-2946
-6
-48
-10
-Ninguna
-Ninguna
-El alumno aplicará los conocimientos de protocolos, criptografía y seguridad para desarrollar programas bajo la arquitectura cliente/servidor mediante un lenguaje de programación.

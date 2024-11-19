@@ -1,8 +1,0 @@
-FUNDAMENTOS DE PROGRAMACIÓN
-1122
-10
-96
-1
-Ninguna
-Estructura de Datos y Algoritmos I
-El alumno resolverá problemas aplicando los fundamentos de programación para diseñar programas en el lenguaje estructurado C, apoyándose en metodologías para la solución de problemas.

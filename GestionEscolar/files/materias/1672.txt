@@ -1,8 +1,0 @@
-MICROCOMPUTADORAS
-1672
-8
-80
-8
-Diseño Digital Vlsi
-Organización y Arquitectura de Computadoras, Fundamentos de Sistemas Embebidos
-El alumno integrará los conocimientos de la teoría y funcionamiento de los microprocesadores, además de su interconexión con diferentes circuitos periféricos para la construcción y programación de microcomputadoras.

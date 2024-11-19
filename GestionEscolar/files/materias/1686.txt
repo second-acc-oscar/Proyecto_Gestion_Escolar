@@ -1,8 +1,0 @@
-SISTEMAS DE COMUNICACIONES
-1686
-8
-80
-7
-Señales y Sistemas
-Redes de Datos Seguras
-El alumno dominará los conceptos fundamentales, las herramientas y metodologías empleadas para el análisis y evaluación de los sistemas de comunicaciones electrónicos modernos.

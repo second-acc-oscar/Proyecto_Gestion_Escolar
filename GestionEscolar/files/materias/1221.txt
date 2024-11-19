@@ -1,8 +1,0 @@
-CÁLCULO INTEGRAL
-1221
-8
-64
-2
-Cálculo y Geometría Analítica
-Ecuaciones Diferenciales, Cálculo Vectorial
-El alumno utilizará conceptos del cálculo integral para funciones reales de variable real y las variaciones de funciones escalares de variable vectorial respecto a cada una de sus variables, para resolver problemas físicos y geométricos.

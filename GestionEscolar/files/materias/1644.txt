@@ -1,8 +1,0 @@
-BASES DE DATOS
-1644
-14
-128
-6
-Ninguna
-Ninguna
-El alumno analizará los conceptos y principios en los que se fundamenta la teoría de bases de datos, los cuales le permitirán diseñar, usar e implementar sistemas de bases de datos relacionales.

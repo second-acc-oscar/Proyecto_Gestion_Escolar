@@ -1,8 +1,0 @@
-ESTRUCTURA DE DATOS Y ALGORITMOS II
-1317
-10
-96
-3
-Estructura de Datos y Algoritmos I
-Estructuras Discretas
-El alumno diseñará algoritmos para la resolución de problemas de la ciencia e ingeniería en computación.

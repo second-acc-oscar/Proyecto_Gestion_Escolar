@@ -1,8 +1,0 @@
-PROGRAMACIÓN ORIENTADA A OBJETOS
-1323
-10
-96
-3
-Estructura de Datos y Algoritmos I
-Ninguna
-El alumno construirá programas con el paradigma orientado a objetos, así como el diseño de abstracciones para apoyar el diseño de software y bibliotecas reusables, empleando un enfoque de pruebas sistemático.

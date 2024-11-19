@@ -1,8 +1,0 @@
-SISTEMAS DISTRIBUIDOS
-1959
-8
-64
-9
-Ninguna
-Ninguna
-El alumno integrará los conceptos fundamentales en los sistemas distribuidos para que le permita llevar a cabo el análisis de sistemas, redes, algoritmos y transacciones distribuidas.

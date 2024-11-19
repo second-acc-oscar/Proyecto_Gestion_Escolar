@@ -1,8 +1,0 @@
-REDES DE DATOS SEGURAS
-1598
-14
-128
-8
-Sistemas de Comunicaciones
-Ninguna
-El alumno integrará los conocimientos de protocolos, métodos y estándares sobre redes de datos dentro de las siete capas del modelo OSI, considerando medidas de seguridad en cada una de las capas de acuerdo a los estándares ISO 7498-1 e ISO 7498-2.

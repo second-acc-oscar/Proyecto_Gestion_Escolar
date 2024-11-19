@@ -1,8 +1,0 @@
-COMPILADORES
-0434
-8
-64
-7
-Lenguajes Formales y Autómatas
-Ninguna
-El alumno diseñará los traductores como herramientas de uso y desarrollo de sistemas de software; como también diferenciará traductores existentes para elaborar software eficiente y adecuado al tipo de problema por resolver.

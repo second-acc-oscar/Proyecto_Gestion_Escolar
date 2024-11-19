@@ -1,8 +1,0 @@
-CÁLCULO VECTORIAL
-1321
-8
-64
-3
-Cálculo Integral
-Electricidad y Magnetismo
-El alumno aplicará los criterios para optimizar funciones de dos o más variables, analizará funciones vectoriales y calculará integrales de línea e integrales múltiples para resolver problemas físicos y geométricos.

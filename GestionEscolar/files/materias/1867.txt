@@ -1,8 +1,0 @@
-ORGANIZACIÓN Y ARQUITECTURA DE COMPUTADORAS
-1867
-8
-80
-9
-Microcomputadoras
-Ninguna
-El alumno aplicará, desde el punto de vista de los sistemas digitales VLSI, los diferentes componentes que constituyen un microprocesador mediante los conceptos actuales de las arquitecturas modernas.

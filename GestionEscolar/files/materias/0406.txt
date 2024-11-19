@@ -1,8 +1,0 @@
-INTELIGENCIA ARTIFICIAL
-0406
-8
-64
-7
-Lenguajes Formales y Autómatas
-Ninguna
-El alumno formulará problemas teóricos y prácticos en áreas significativas de la inteligencia artificial para resolver problemas en el área de la computación.

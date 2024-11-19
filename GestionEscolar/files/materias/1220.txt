@@ -1,8 +1,0 @@
-ÁLGEBRA LINEAL
-1220
-8
-64
-2
-Álgebra
-Probabilidad
-El alumno analizará los conceptos básicos del álgebra lineal, ejemplificándolos mediante sistemas algebraicos ya conocidos, haciendo énfasis en el carácter general de los resultados, a efecto de que adquiera elementos que le permitan fundamentar diversos métodos empleados en la resolución de problemas de ingeniería.

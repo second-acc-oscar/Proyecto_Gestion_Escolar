@@ -1,8 +1,0 @@
-CÁLCULO Y GEOMETRÍA ANALÍTICA
-1121
-12
-96
-1
-Ninguna
-Cálculo Integral, Mecánica
-El alumno analizará los conceptos fundamentales del cálculo diferencial de funciones reales de variable real y del álgebra vectorial, y los aplicará en la resolución de problemas físicos y geométricos.

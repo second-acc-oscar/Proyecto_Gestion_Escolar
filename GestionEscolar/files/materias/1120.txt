@@ -1,8 +1,0 @@
-ÁLGEBRA
-1120
-8
-64
-1
-Ninguna
-Álgebra Lineal
-El alumno analizará las propiedades de los sistemas numéricos y las utilizará en la resolución de problemas de polinomios, sistemas de ecuaciones lineales y matrices y determinantes, para que de manera conjunta estos conceptos le permitan iniciar el estudio de la física y la matemática aplicada.
