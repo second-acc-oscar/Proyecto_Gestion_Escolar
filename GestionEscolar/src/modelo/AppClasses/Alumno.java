@@ -1,6 +1,7 @@
 package modelo.AppClasses;
 
 import controlador.Sistema;
+import java.util.List;
 import java.util.Random;
 import modelo.Archivos;
 import modelo.BaseDatos;
@@ -44,7 +45,7 @@ public class Alumno {
     /**
      * Objeto que contiene toda la información sobre las materias que ha inscrito el Alumno a lo largo del tiempo y conforme a su avance curricular.
      */
-    private HistorialAcademico historialAcademico;
+    private HistorialAcademico historialAcademico = new HistorialAcademico();
     
     /**
      * Promedio acumulado de todas las materias inscritas desde que inició la carrera el Alumno.
@@ -238,9 +239,11 @@ public class Alumno {
 
     /**
      * Método que devuelve el promedio general del Alumno.
+     * Se calcula de manera dinámica al valor más reciente dado por su {@code HistorialAcademico}
      * @return Un número de expresión decimal que contiene el promedio acumulado del Alumno hasta el momento.
      */
     public float getPromedioGeneral() {
+        promedioGeneral = historialAcademico.getPromedioGeneral();
         return promedioGeneral;
     }
 
@@ -289,6 +292,7 @@ public class Alumno {
      * @return Un número entero, el número de asignaturas que ha inscrito el Alumno a lo largo de toda su carrera.
      */
     public int getAsignaturasInscritas() {
+        asignaturasInscritas = historialAcademico.getAsignaturasInscritas();
         return asignaturasInscritas;
     }
 
@@ -305,6 +309,7 @@ public class Alumno {
      * @return Un número entero, el número de asignaturas que ha <b>aprobado</b> el Alumno desde su ingreso.
      */
     public int getAsignaturasAprobadas() {
+        asignaturasAprobadas = historialAcademico.getAsignaturasAprobadas();
         return asignaturasAprobadas;
     }
 
@@ -342,7 +347,7 @@ public class Alumno {
         int num = 0;
         int temp;
         
-        temp = rm.nextInt(1, 5);
+        temp = rm.nextInt(1, 4);
         num += temp * 1E8;
         num += (24-2*temp) * 1E7;
         temp = rm.nextInt( 111111, 1000000);
@@ -363,6 +368,7 @@ public class Alumno {
         String dominio = "@fi.unam";
         
         correo += nombre.toLowerCase();
+        correo = correo.replaceAll("\\s+", "");
         correo += ".";
         correo += primerApellido.toLowerCase();
         correo += segundoApellido.toLowerCase();
@@ -372,13 +378,193 @@ public class Alumno {
     }
     
     /**
-     * Módulo que genera una edad aleatorio para la creación automática de un Alumnos.
+     * Módulo que genera una edad aleatorio para la creación automática de un Alumno.
      * @return Un número entero que representa la edad del Alumno.
      */
     private static int generarEdad() {
         Random rm = new Random();
         
-        return rm.nextInt(17, 26);
+        return rm.nextInt(18, 28);
+    }
+    
+    /**
+     * Módulo que genera un nombre aleatorio (de entre la base de datos) para la creación automática de un Alumno.
+     * El módulo en su generacion tiene un 20% de probabilidad de generar el nombre del Alumno compuesto, es decir, con dos nombres en lugar de uno.
+     * Si el Alumno tiene dos nombres en lugar de uno, el segundo se concatenará al primero en una misma cadena.
+     * @return Una cadena, el nombre (o nombres concatenados) del Alumno.
+     */
+    private static String generarNombre() {
+        String nombre;
+        Random rm = new Random();
+        
+        nombre = Sistema.getNombreAleatorio();
+        
+        if( rm.nextInt(100) > 80 )
+        {
+            nombre += " ";
+            nombre += Sistema.getNombreAleatorio();
+        }
+        
+        return nombre;
+    }
+    
+    /**
+     * Módulo que genera el semestre regular relacionado a un Alumno, dependiendo de su edad.
+     * Si su edad es menor o igual a dieciocho años, entonces no puede estar en un semestre mayor al cuarto.
+     * Utilizado en la creación automática de un Alumno.
+     * @param edad La edad entera del Alumno.
+     * @return El semestre regular designado para el Alumno.
+     */
+    private static int generarSemestreRegular( int edad ) {
+        int semestreRegular;
+        Random rm = new Random();
+        
+        if( edad <= 18 )
+        {
+            semestreRegular = rm.nextInt(1, 5);
+        }
+        else
+        {
+            semestreRegular = rm.nextInt(1, 11);
+        }
+        
+        return semestreRegular;
+    }
+    
+    /**
+     * Calcula y asigna automáticamente el semestre de última inscripción de una asignatura inscrita según el semestre regular correspondiente a ese Alumno.
+     * @param semestreRegular El semestre regular del Alumno en cuestión.
+     * @return Un número entero, el semestre de última inscripción para cierta Asignatura.
+     */
+    private static int generarSemestreInscripcion( Asignatura asignatura, int semestreRegular ) {
+        int semestreInscripcion;
+        
+        if( asignatura.getSemestre() == semestreRegular )
+        {
+            semestreInscripcion = semestreRegular;
+        }
+        else
+        {
+            Random rm = new Random();
+            semestreInscripcion = rm.nextInt( asignatura.getSemestre(), semestreRegular+1 );
+            while( semestreInscripcion - asignatura.getSemestre() > 3 )
+            {
+                semestreInscripcion = rm.nextInt( asignatura.getSemestre(), semestreRegular+1 );
+            }
+        }
+        
+        return semestreInscripcion;
+    }
+    
+    /**
+     * Módulo que genera un número flotante entre 5.0 y 10.0 (una calificación válida en la asignación de calificaciones de la facultad).
+     * La calificación se puede generar forzosamente aprobatoria, o con una posibilidad de ser reprobatoria también.
+     * @param esAprobatoria Indica si se requiere una calificación forzosamente aprobatoria, o puede ser también reprobatoria.
+     * @return Un número flotante entre 5.0 (o 6.0 si se indica verdadero con {@code esAprobatoria}) y 10.0.
+     */
+    private static float generarCalif( boolean esAprobatoria ) {
+        float calif = 0.0f;
+        int temp;
+        Random rm = new Random();
+        
+        if( esAprobatoria )
+        {
+            temp = rm.nextInt(1, 1001);
+            if( temp > 700 )
+            {
+                if( rm.nextBoolean() == true )
+                    calif += 8.0;
+                else
+                    calif += 9.0;
+            }
+            else
+            {
+                if( temp > 250 )
+                    calif += 7.0;
+                else
+                    if( rm.nextBoolean() == true )
+                        calif += 10.0;
+                    else
+                        calif += 6.0;
+            }
+        }
+        else
+        {
+            temp = rm.nextInt(1, 1001);
+            if( temp > 700 )
+            {
+                if( rm.nextBoolean() == true )
+                    calif += 8.0;
+                else
+                    calif += 9.0;
+            }
+            else
+            {
+                if( temp > 200 )
+                    calif += 7.0;
+                else
+                    if( temp > 100 )
+                        calif += 6.0;
+                    else
+                        if( rm.nextBoolean() == true )
+                            calif += 10.0;
+                        else
+                            calif += 5.0;
+            }
+        }
+        
+        if( ! (calif != 10.0) )
+        {
+            calif += ( rm.nextInt(1,10) )/10;
+        }
+        
+        return calif;
+    }
+    
+    /**
+     * Módulo que genera una calificación obtenida en una cierta asignatura para un Alumno.
+     * Automatiza el proceso de creación aleatoria de Alumnos.
+     * Dicha calificación puede ser aprobatoria únicamente si la primera vez que se cursó la Asignatura por primera vez (campo semestre de Asignatura) está en un rango de tres semestres al que está realmente el Alumno (campo semestre regular del Alumno).
+     * @param asignatura El objeto de tipo Asignatura a la que se le está asignando una calificación.
+     * @param semestreRegular El semestre en el que debería estar el Alumno en su avance curricular previsto.
+     * @return 
+     */
+    private static float generarCalificacionObtenida( Asignatura asignatura, int semestreRegular ) {
+        float califObtenida;
+        
+        if( semestreRegular - asignatura.getSemestre() > 3 )
+        {
+            califObtenida = Alumno.generarCalif( true );
+        }
+        else
+        {
+            califObtenida = Alumno.generarCalif( false );
+        }
+        
+        return califObtenida;
+    }
+    
+    /**
+     * Módulo que genera, para una {@code AsignaturaInscrita}, el número de inscripciones que se han realizado de manera aleatoria.
+     * Automatiza la creación automática de Alumnos aleatorios.
+     * @param semestreUltimaInscripcion 
+     * @param semestreRegular El semestre en el que debería estar el Alumno en su avance curricular previsto.
+     * @return Un número entero, la cantidad de inscripciones actuales para la asignatura.
+     */
+    private static int generarInscripcion( int semestreUltimaInscripcion, int semestreRegular ) {
+        int inscripcion;
+        Random rm = new Random();
+        
+        if( semestreUltimaInscripcion - semestreRegular < 3 && semestreUltimaInscripcion - semestreRegular > 0 )
+        {
+            inscripcion = rm.nextInt( 1, semestreUltimaInscripcion - semestreRegular );
+        }
+        else
+        {
+            inscripcion = rm.nextInt( 1, 4 );
+        }
+        
+        return inscripcion;
     }
     
     /**
@@ -392,7 +578,21 @@ public class Alumno {
      * @param alumno El alumno cuyo historial académico debe de inicializarse.
      */
     private static void generarHistorialAcademico(Alumno alumno) {
-        
+        for( int i = 0; i < alumno.getSemestreRegular(); i++ )
+        {
+            List<String> semestre = PlanDeEstudios.SEMESTRES.get(i);
+            for( String claveAsig : semestre )
+            {
+                AsignaturaInscrita asignatura = new AsignaturaInscrita();
+                
+                asignatura.setClaveAsignatura( claveAsig );
+                asignatura.setSemestreIncripcion( Alumno.generarSemestreInscripcion( Sistema.getAsignatura(claveAsig), alumno.getSemestreRegular() ) );
+                asignatura.setCalificacionObtenida( Alumno.generarCalificacionObtenida( Sistema.getAsignatura(claveAsig), alumno.getSemestreRegular() ) );
+                asignatura.setInscripciones( Alumno.generarInscripcion( asignatura.getSemestreIncripcion(), alumno.getSemestreRegular() ) );
+                
+                alumno.getHistorialAcademico().addAsignatura( asignatura );
+            }
+        }
     }
     
     /**
@@ -403,7 +603,7 @@ public class Alumno {
         Alumno alumno = new Alumno();
         int noCuenta;
         
-        alumno.setNombre( Sistema.getNombreAleatorio() );
+        alumno.setNombre( Alumno.generarNombre() );
         alumno.setApellidoPaterno( Sistema.getApellidoAleatorio() );
         alumno.setApellidoMaterno( Sistema.getApellidoAleatorio() );
         alumno.setDomicilio( Sistema.getDomicilioAleatorio() );
@@ -416,7 +616,11 @@ public class Alumno {
         }
         alumno.setNumeroDeCuenta( noCuenta );
         alumno.setNumeroDeInscripcion( 0 );
+        alumno.setSemestreRegular( Alumno.generarSemestreRegular( alumno.getEdad() ) );
         Alumno.generarHistorialAcademico( alumno );
+        alumno.setAsignaturasInscritas( alumno.getHistorialAcademico().getAsignaturasInscritas() );
+        alumno.setAsignaturasAprobadas( alumno.getHistorialAcademico().getAsignaturasAprobadas() );
+        alumno.setPromedioGeneral( alumno.getHistorialAcademico().getPromedioGeneral() );
         
         return alumno;
     }
@@ -426,16 +630,18 @@ public class Alumno {
      */
     public void imprimirAlumno() {
         System.out.println("\nLos datos del alumno son los siguientes:"
-                + "\n\tNombre:\t" + this.getNombreCompleto()
+                + "\n\tNombre:\t\t" + this.getNombreCompleto()
                 + "\n\tNo. de cuenta:\t" + this.getNumeroDeCuenta() 
                 + "\n\tDomicilio:\t" + this.getDomicilio() 
-                + "\n\tCorreo:\t" + this.getCorreo() 
-                + "\n\tEdad:\t" + this.getEdad() + " años."
+                + "\n\tCorreo:\t\t" + this.getCorreo() 
+                + "\n\tEdad:\t\t\t" + this.getEdad() + " años."
+                + "\n\tPromedio general:\t" + this.getPromedioGeneral()
                 + "\n\tSemestre regular:\t" + this.getSemestreRegular() 
-                + "\n\tEs regular:\t" + (this.getAsignaturasAprobadas() == 5*this.getSemestreRegular() ? "Sí" : "No") 
+                + "\n\tEs regular:\t\t" + (this.getAsignaturasAprobadas() == 5*this.getSemestreRegular() ? "Sí" : "No") 
                 + "\n\tAsignaturas inscritas:\t" + this.getAsignaturasInscritas()
                 + "\n\tAsignaturas aprobadas:\t" + this.getAsignaturasAprobadas()
                 + "\n\tNo. inscripción:\t" + ( this.getNumeroDeInscripcion() > 0 ? this.getNumeroDeInscripcion(): ( this.getNumeroDeInscripcion() == -1 ? "N/A" : "No disponible" ) )  );
+        historialAcademico.mostrar();
     }
     
     /**

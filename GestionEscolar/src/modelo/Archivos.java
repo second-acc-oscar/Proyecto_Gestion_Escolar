@@ -126,6 +126,7 @@ public class Archivos {
             usuario.setClave( br.readLine() );
             usuario.setPassword( br.readLine() );
             
+//            usuario.imprimirUsuario(); // <--- Impresión del usuario según se lee de archivos
             bd.addUsuario( usuario.getClave(), usuario);
         } catch (Exception e) {
             System.out.println("Ha ocurrido un error al leer el usuario: " + fileName );
@@ -192,6 +193,7 @@ public class Archivos {
             asignatura.setSeriacionSubsecuente( br.readLine() );
             asignatura.setObjetivo( br.readLine() );
             
+//            asignatura.imprimirAsignatura(); // <--- Impresión de la asignatura según se lee de archivos
             PlanDeEstudios.addAsignatura( asignatura.getSemestre(), asignatura.getClave() );
             bd.addAsignatura( asignatura.getClave(), asignatura);
         } catch (Exception e) {
@@ -224,11 +226,12 @@ public class Archivos {
      * @throws IOException Error al leer los archivos, e.g. al momento de leer los nombres o apellidos.
      */
     private static void leerNombres( BaseDatos bd ) throws IOException {
-        try ( FileReader fr = new FileReader( RUTA_NOMBRES ); BufferedReader br = new BufferedReader( fr ) ) {            
+        try ( FileReader fr = new FileReader( RUTA_NOMBRES ); BufferedReader br = new BufferedReader( fr ) ) {
             String fileContent = br.readLine();
             while( fileContent != null )
             {
                 bd.addNombre( fileContent );
+//                System.out.println( fileContent ); // <--- Impresión de los nombres según se van leyendo de archivos
                 fileContent = br.readLine();
             }
         } catch ( IOException e ) {
@@ -244,12 +247,15 @@ public class Archivos {
      */
     private static void leerApellidos( BaseDatos bd ) throws IOException {
         try ( FileReader fr = new FileReader( RUTA_APELLIDOS ); BufferedReader br = new BufferedReader( fr )) {
+            String apellido;
             String fileContent = br.readLine();
             while( fileContent != null ) {
                 StringTokenizer tokenizador = new StringTokenizer( fileContent, ",");
                 while( tokenizador.hasMoreTokens() )
                 {
-                    bd.addApellido( tokenizador.nextToken() );
+                    apellido = tokenizador.nextToken();
+//                    System.out.println( apellido ); // <--- Impresión de los apellidos según se leen de archivos
+                    bd.addApellido( apellido );
                 }
                 fileContent = br.readLine();
             }
@@ -270,6 +276,7 @@ public class Archivos {
             while( fileContent != null )
             {
                 bd.addDireccion( fileContent );
+//                System.out.println(fileContent); // <--- Impresión de las direcciones según se leen de archivos
                 fileContent = br.readLine();
             }
         } catch (Exception e) {

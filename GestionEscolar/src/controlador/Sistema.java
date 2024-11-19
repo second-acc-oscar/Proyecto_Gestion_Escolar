@@ -1,6 +1,7 @@
 package controlador;
 
 import modelo.BaseDatos;
+import modelo.AppClasses.Asignatura;
 
 /**
  * Clase representante del controlador para el resto de la lógica del programa.
@@ -57,5 +58,14 @@ public class Sistema {
      */
     public static String getNombreAsignatura( String claveAsignatura ) {
         return bd.getNombreAsignatura( claveAsignatura );
+    }
+    
+    /**
+     * Interfaz que hace una petición a la base de datos para obtener al objeto de tipo Asignatura asociada a una valor clave de asignatura.
+     * @param claveAsignatura La clave de la Asignatura que se quiere obtener.
+     * @return El objeto de tipo Asignatura hallado, o {@code null} en caso de que no se haya encontrado.
+     */
+    public static Asignatura getAsignatura( String claveAsignatura ) {
+        return bd.getAsignatura( claveAsignatura );
     }
 }

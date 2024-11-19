@@ -1,5 +1,6 @@
 package vista;
 
+import modelo.AppClasses.Alumno;
 import modelo.AppClasses.PlanDeEstudios;
 import modelo.Archivos;
 import modelo.BaseDatos;
@@ -23,6 +24,16 @@ public class Principal {
         System.out.println("Apellidos: " + bd.getNumApellidos());
         System.out.println("Direcciones: " + bd.getNumDirecciones());
         System.out.println("Usuarios: " + bd.getNumUsuarios());
-        PlanDeEstudios.imprimir();
+//        PlanDeEstudios.imprimir();
+
+        for(int i = 0; i < 100; i++ )
+        {
+            Alumno alumno;
+            alumno = Alumno.generarAlumnoAleatorio();
+            bd.addAlumnoOrdinario(alumno);
+//            alumno.imprimirAlumno();
+        }
+        
+        System.out.println("Alumnos: " + bd.getNumAlumnos());
     }
 }

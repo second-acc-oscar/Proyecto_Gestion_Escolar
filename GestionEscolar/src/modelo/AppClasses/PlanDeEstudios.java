@@ -82,6 +82,7 @@ public class PlanDeEstudios {
      */
     public static void imprimir() {
         int i = 0;
+        System.out.println("Plan de estudios, Ing. en Computación");
         for (List<String> semestre : SEMESTRES) {
             System.out.println("Semestre " + ++i);
             for (String clave : semestre) {
