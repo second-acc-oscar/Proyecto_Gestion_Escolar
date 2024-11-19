@@ -31,7 +31,7 @@ public class Principal {
             Alumno alumno;
             alumno = Alumno.generarAlumnoAleatorio();
             bd.addAlumnoOrdinario(alumno);
-//            alumno.imprimirAlumno();
+            alumno.imprimirAlumno();
         }
         
         System.out.println("Alumnos: " + bd.getNumAlumnos());
