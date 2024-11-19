@@ -2,6 +2,19 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+        <group>
+            <file>file:/C:/Users/Saul/Desktop/ProyectoPOO/Proyecto_Gestion_Escolar/GestionEscolar/src/controlador/MergeSort.java</file>
+            <file>file:/C:/Users/Saul/Desktop/ProyectoPOO/Proyecto_Gestion_Escolar/GestionEscolar/src/modelo/AppClasses/Alumno.java</file>
+            <file>file:/C:/Users/Saul/Desktop/ProyectoPOO/Proyecto_Gestion_Escolar/GestionEscolar/src/modelo/Archivos.java</file>
+            <file>file:/C:/Users/Saul/Desktop/ProyectoPOO/Proyecto_Gestion_Escolar/GestionEscolar/src/modelo/AppClasses/AlumnoNumeroInscripcion.java</file>
+            <file>file:/C:/Users/Saul/Desktop/ProyectoPOO/Proyecto_Gestion_Escolar/GestionEscolar/src/modelo/BaseDatos.java</file>
+            <file>file:/C:/Users/Saul/Desktop/ProyectoPOO/Proyecto_Gestion_Escolar/GestionEscolar/src/modelo/AppClasses/Asignatura.java</file>
+            <file>file:/C:/Users/Saul/Desktop/ProyectoPOO/Proyecto_Gestion_Escolar/GestionEscolar/src/vista/Principal.java</file>
+            <file>file:/C:/Users/Saul/Desktop/ProyectoPOO/Proyecto_Gestion_Escolar/GestionEscolar/src/vista/PersonalAcademico.java</file>
+        </group>
+=======
         <group/>
+>>>>>>> f0b6b7627210e21b5fd856b52df5d0e8be6a900e
     </open-files>
 </project-private>
