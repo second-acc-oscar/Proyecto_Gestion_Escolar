@@ -10,6 +10,7 @@ public class AlumnoNumeroInscripcion {
     private int numeroCuenta;
     private float indicadorEscolar;
     private int numeroInscripcion;
+    private list;
 
     public AlumnoNumeroInscripcion() {
     }
@@ -45,6 +46,8 @@ public class AlumnoNumeroInscripcion {
     }
     
     public void Merge(float indicadorEscolar){
-        MergeSort.iniciarMergeSort(indicadorEscolar);
+        String primero = list.get(0);
+        String ultimo = list.get( list.size()-1 );
+        MergeSort.iniciarMergeSort(indicadorEscolar, primero, ultimo);
     }
 }
