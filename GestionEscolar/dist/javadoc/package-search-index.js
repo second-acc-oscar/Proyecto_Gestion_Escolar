@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"controlador"},{"l":"controlador.crud_academico_controller"},{"l":"controlador.crud_alumno_controller"},{"l":"modelo"},{"l":"modelo.AppClasses"},{"l":"vista"},{"l":"vista.crud_academico"},{"l":"vista.crud_alumno"}];updateSearchResults();

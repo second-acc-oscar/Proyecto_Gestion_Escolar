@@ -1,8 +1,0 @@
-controlador
-controlador.crud_academico_controller
-controlador.crud_alumno_controller
-modelo
-modelo.AppClasses
-vista
-vista.crud_academico
-vista.crud_alumno
