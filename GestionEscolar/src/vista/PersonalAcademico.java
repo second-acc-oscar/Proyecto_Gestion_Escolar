@@ -23,7 +23,7 @@ public class PersonalAcademico {
          * Fragmento de codigo encargado de solicitar al usuario la accsion deseada haciendo uso de un while y un switch
          */
         System.out.println("Hola Academico\n ¿Que cambio quiere hacer?");
-        System.out.println("1)Consultar estudiantes \n2)Agregar algún estudiantes \n3)Modificar algun estudiantes \n4)Eliminar algun estudiantes \n5)Visualizar FDU \6)Convertitr alumnoen FDU \n7)Salir");
+        System.out.println("1)Consultar estudiantes \n2)Agregar algún estudiantes \n3)Modificar algun estudiantes \n4)Eliminar algun estudiantes \n5)Visualizar FDU \n6)Convertitr alumnoen FDU \n7)Salir");
         try {
             Scanner lectura = new Scanner(System.in);
             int op = lectura.nextInt();

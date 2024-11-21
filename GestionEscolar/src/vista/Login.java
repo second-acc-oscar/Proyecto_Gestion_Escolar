@@ -35,8 +35,20 @@ public class Login {
                 contrasena = lecturaCl.next();
             }
         }while(tmpCl != true);
-        
-        PersonalAcademico.iniciar();
+        System.out.println("Ingrese el valor correspondiente a la forma en la que quiuere ingresar \n1)Academico \n2)Administrador");
+        Scanner lectura = new Scanner(System.in);
+        int acc = lectura.nextInt();
+        do{
+            switch (acc) {
+                case 1 -> PersonalAcademico.iniciar();
+                case 2 -> Admin.iniciar();
+                default -> {
+                    System.out.println("El valor ingresado no es valido");
+                    System.out.println("Ingrese un valor valido");
+                    acc = lectura.nextInt();
+                }
+            }
+        }while(acc != 1 || acc != 2);
     }
     
     /**

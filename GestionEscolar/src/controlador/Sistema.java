@@ -80,7 +80,7 @@ public class Sistema {
      */
     public static String getContrasenaAcademico( String claveUsuario ) {
         if( bd.existeUsuario( claveUsuario ) )
-            return bd.getContrasenaUsuario( claveUsuario );
+            return bd.getContrasenaAcademico( claveUsuario );
         else
             return null;
     }

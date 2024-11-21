@@ -1,6 +1,7 @@
 package vista;
 import controlador.Sistema;
 import java.util.Scanner;
+import modelo.AppClasses.Usuario;
 /**
  * Clase que establece las acciones quie pueden ser realizadas por un administrador
  * 
@@ -56,7 +57,7 @@ public class Admin {
                     System.out.println("Ingresa la clave del academico a agregar: ");
                     String clave = lectura.next();
                     do{
-                        tmpCl = verificarClaveRepetida(clave);
+                        tmpCl = verificarClaveExistente(clave);
                         if(tmpCl == true)
                             System.out.println("Esa clave ya existe, use una diferente");
                         else
@@ -72,7 +73,7 @@ public class Admin {
                     System.out.println("Ingresa la clave del academico a modificar: ");
                     String clave = lectura.next();
                     do{
-                        tmpCl = verificarClaveRepetida(clave);
+                        tmpCl = verificarClaveExistente(clave);
                         if(tmpCl == false)
                             System.out.println("Esa clave no existe, use una diferente");
                         else
@@ -105,7 +106,9 @@ public class Admin {
                 }
                 
                 default -> {
-                    System.out.println("Ingrese una opcion valida");
+                    System.out.println("La opción ingresada es invalida");
+                    System.out.println("Ingrese una nueva opcion valida");
+                    op = lectura.nextInt();
                 }
             }
         }
@@ -129,6 +132,9 @@ public class Admin {
     
     /**
      * Metodo encargado de solicitar el sistema que agregue un academico 
+     * @param nombre
+     * @param clave
+     * @param contrasena 
      */
     private static void agregarAcademicos(String nombre, String clave, String contrasena){
         Sistema.agregarAcademico(nombre, clave, contrasena);
@@ -136,10 +142,49 @@ public class Admin {
     }
     
     /**
-     * Metodo encargado de solicitar el sistema que modifique el academico solicitado
+     * Metodo encargado de modificar los datos correspondientes a un academico solicitado, siendso que funciona para cualquiera de los campos existentes
+     * @param clave
      */
     private static void modificarAcademicos(String clave){
-        Sistema.modificarAcademico(clave);
+        System.out.println("Ingresa el numero correspondiente al dato que quieres modificar\n1)Nombre\n2)Clave\n3)Contraseña");
+        Scanner lectura = new Scanner(System.in);
+        int op = lectura.nextInt();        
+        do{    
+            switch (op) {
+                case 1 -> {
+                    System.out.println("Ingrese el nuevo nombre");
+                    String nombre = lectura.next();
+                    String nclave = clave;
+                    String contrasena = Sistema.getContrasenaAcademico(clave);
+                    Usuario usuario = new Usuario(nombre, nclave, contrasena);
+                    Sistema.modificarAcademico(clave, usuario);
+                }
+
+                case 2 -> {
+                    System.out.println("Ingrese la nueva Clave");
+                    String nclave = lectura.next();
+                    String nombre = Sistema.getNombreAcademico(clave);
+                    String contrasena = Sistema.getContrasenaAcademico(clave);
+                    Usuario usuario = new Usuario(nombre, nclave, contrasena);
+                    Sistema.modificarAcademico(clave, usuario);
+                }
+
+                case 3 -> {
+                    System.out.println("Ingrese la nueva Contraseña");
+                    String contrasena = lectura.next();
+                    String nclave = clave;
+                    String nombre = Sistema.getNombreAcademico(clave);
+                    Usuario usuario = new Usuario(nombre, nclave, contrasena);
+                    Sistema.modificarAcademico(clave, usuario);
+                }
+
+                default -> {
+                    System.out.println("La opción ingresada es invalida");
+                    System.out.println("Ingrese una nueva opcion valida");
+                    op = lectura.nextInt();
+                }
+            }
+        }while(op != 1 || op != 2  || op != 3);
         System.out.println("Se elimino el academico solicitado");
     }
     
