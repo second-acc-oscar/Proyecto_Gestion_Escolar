@@ -259,6 +259,16 @@ public class BaseDatos {
     }
     
     /**
+     * Método que devuelve la contaseña de un Usuario cuya clave se conoce.
+     * Parte de la certeza de que dicho Uusario existe en la base de datos.
+     * @param claveUsuario La clave identificador único del Usuario.
+     * @return La contraseña del Usuario.
+     */
+    public String getContrasenaAcademico( String claveUsuario ) {
+        return usuarios.get( claveUsuario ).getPassword();
+    }
+    
+    /**
      * Utilizado por la clase {@code Archivos} para inflar la información en la base de datos local de los posibles nombres para alumnos, según los archivos leídos.
      * @param nombre El nombre a añadir a la base de datos.
      */

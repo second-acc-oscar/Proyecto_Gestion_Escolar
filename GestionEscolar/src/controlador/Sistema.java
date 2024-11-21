@@ -74,6 +74,18 @@ public class Sistema {
     }
     
     /**
+     * Interfaz que hace una petición a la base de datos para obtener la contraseña de un Usuario.
+     * @param claveUsuario Clave identificador del Usuario cuya contraseña se quiere obtener.
+     * @return La contraseña del Usuario si éste se mapea correctamente en la base de datos, o {@code null} en caso contrario.
+     */
+    public static String getContrasenaAcademico( String claveUsuario ) {
+        if( bd.existeUsuario( claveUsuario ) )
+            return bd.getContrasenaUsuario( claveUsuario );
+        else
+            return null;
+    }
+    
+    /**
      * Interfaz que hace una petición a la base de datos para obtener al objeto de tipo Asignatura asociada a una valor clave de asignatura.
      * @param claveAsignatura La clave de la Asignatura que se quiere obtener.
      * @return El objeto de tipo Asignatura hallado, o {@code null} en caso de que no se haya encontrado.
