@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.Sistema;
 import modelo.AppClasses.Alumno;
 import modelo.AppClasses.PlanDeEstudios;
 import modelo.Archivos;
@@ -31,9 +32,11 @@ public class Principal {
             Alumno alumno;
             alumno = Alumno.generarAlumnoAleatorio();
             bd.addAlumnoOrdinario(alumno);
-            alumno.imprimirAlumno();
+//            alumno.imprimirAlumno();
         }
         
         System.out.println("Alumnos: " + bd.getNumAlumnos());
+        
+        Sistema.imprimirAcademicos();
     }
 }
