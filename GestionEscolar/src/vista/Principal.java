@@ -38,5 +38,7 @@ public class Principal {
         System.out.println("Alumnos: " + bd.getNumAlumnos());
         
         Sistema.imprimirAcademicos();
+        
+        Login.iniciar();
     }
 }

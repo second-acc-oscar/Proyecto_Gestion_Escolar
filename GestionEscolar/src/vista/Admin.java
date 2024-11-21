@@ -16,6 +16,7 @@ import java.util.Scanner;
  */
 public class Admin {
     private static final String CONTRA_ADMIN = "LUL1234";
+    private static final String USUARIO_ADMIN = "Admin";
     
     /**
      * Metodo encargado de iniciar las acciones de la clase basado en la opción solicitada por el usuario
@@ -114,7 +115,7 @@ public class Admin {
      * Metodo encargado de solicitar el sistema que imprima la lista de los academicos registrados
      */
     private static void consultarAcademicos() {
-        Sistema.imprimirAcademicoS();
+        Sistema.imprimirAcademicos();
     }
     
     /**
@@ -123,14 +124,14 @@ public class Admin {
      * @return 
      */
     private static boolean verificarClaveExistente(String clave){
-        return Sistema.verificarClaveExistenteS(clave);
+        return Sistema.existeUsuario(clave);
     }
     
     /**
      * Metodo encargado de solicitar el sistema que agregue un academico 
      */
     private static void agregarAcademicos(String nombre, String clave, String contrasena){
-        Sistema.agregarAcademicoS(nombre, clave, contrasena);
+        Sistema.agregarAcademico(nombre, clave, contrasena);
         System.out.println("Se agrego el academico solicitado");
     }
     
@@ -138,7 +139,7 @@ public class Admin {
      * Metodo encargado de solicitar el sistema que modifique el academico solicitado
      */
     private static void modificarAcademicos(String clave){
-        Sistema.modificarAcademicoS(clave);
+        Sistema.modificarAcademico(clave);
         System.out.println("Se elimino el academico solicitado");
     }
     
@@ -146,7 +147,7 @@ public class Admin {
      * Metodo encargado de solicitar el sistema que elimine el academico solicitado
      */ 
     private static void eliminarAcademicos(String clave){
-        Sistema.eliminarAcademicoS(clave);
+        Sistema.eliminarAcademico(clave);
         System.out.println("Se elimino el academico solicitado");
     }
     
@@ -154,7 +155,7 @@ public class Admin {
      * Metodo encargado de solicitar el sistema que verifique los academicos que ingresaron al programa
      */ 
     private static void verificarAcesos(){
-        Sistema.verificarAccesosS();
+        Sistema.verificarAccesos();
         System.out.println("Se elimino el academico solicitado");
     }
 }

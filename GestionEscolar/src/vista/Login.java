@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.Sistema;
 import java.util.Scanner;
 
 /**
@@ -17,10 +18,10 @@ public class Login {
         boolean tmpCl;
         do{
             tmpCl = verificarClaveExistente(clave);
-            if(tmpCl == false)
+            if(tmpCl == false){
                 System.out.println("Esa clave no existe, use una diferente");
-            else
                 clave = lecturaCl.next();
+            }
         }while(tmpCl != true);
         
         System.out.println("Ingrese su contrasena: ");
@@ -28,11 +29,14 @@ public class Login {
         String contrasena = lecturaCon.next();
         do{
             tmpCl = verificarContrasenaCoincide(contrasena, clave);
-            if(tmpCl == false)
+            System.out.println(tmpCl);
+            if(tmpCl == false){
                 System.out.println("Esa clave no existe, use una diferente");
-            else
                 contrasena = lecturaCl.next();
+            }
         }while(tmpCl != true);
+        
+        PersonalAcademico.iniciar();
     }
     
     /**
@@ -41,7 +45,7 @@ public class Login {
      * @return 
      */
     private static boolean verificarClaveExistente(String clave) {
-        return Sistema.verificarClaveExistenteS();
+        return Sistema.existeUsuario(clave);
     }
 
     /**
@@ -51,6 +55,7 @@ public class Login {
      * @return 
      */
     private static boolean verificarContrasenaCoincide(String contrasena, String clave) {
-        return Sistema.verificarContrasenaCoincideS();
+        return Sistema.coincideContrasena(clave, contrasena);
     }
 }
+
