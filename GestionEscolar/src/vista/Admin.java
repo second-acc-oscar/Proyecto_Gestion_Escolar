@@ -15,6 +15,8 @@ import java.util.Scanner;
  * @author Saúl Ojeda
  */
 public class Admin {
+    private static final String CONTRA_ADMIN = "LUL1234";
+    
     /**
      * Metodo encargado de iniciar las acciones de la clase basado en la opción solicitada por el usuario
      */
