@@ -6,6 +6,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import modelo.AppClasses.Alumno;
 import modelo.AppClasses.Asignatura;
+import modelo.AppClasses.RegistroLogin;
 import modelo.AppClasses.Usuario;
 
 /**
@@ -71,6 +72,8 @@ public class BaseDatos {
      * Usuarios dados de alta en el sistema para poder ingresar mediante sus credenciales.
      */
     private Hashtable<String, Usuario> usuarios = new Hashtable<String, Usuario>();
+    
+    private ArrayList<RegistroLogin> historialLogin = new ArrayList<RegistroLogin>();
     
     /**
      * Crea una nueva instancia de BaseDatos vacía.
@@ -232,12 +235,27 @@ public class BaseDatos {
         return asignaturas.get( clave );
     }
     
+    /**
+     * Método que devuelve el nombre de una Asignatura cuya clave se conoce.
+     * @param clave La clave numérica única de la Asignatura.
+     * @return El nombre de la Asignatura si es que se mapea correctamente el valor en la base de datos para la clave dada, o {@code null} en caso contrario.
+     */
     public String getNombreAsignatura( String clave ) {
         Asignatura asignatura = asignaturas.get( clave );
         if( asignatura == null )
             return null;
         else
             return asignatura.getNombre();
+    }
+    
+    /**
+     * Método que devuelve el nombre de un Usuario cuya clave se conoce.
+     * Parte de la certeza de que dicho Usuario existe en la base de datos.
+     * @param claveUsuario La clave identificador único del Usuario.
+     * @return El nombre del Usuario.
+     */
+    public String getNombreUsuario( String claveUsuario ) {
+        return usuarios.get( claveUsuario ).getNombreUsuario();
     }
     
     /**
@@ -293,9 +311,11 @@ public class BaseDatos {
      * Método que añade a la base de datos del sistema un objeto de tipo usuario.
      * @param claveUsuario La clave identificable del usuario.
      * @param usuario El objeto de tipo usuario que se añade como valor a la colección.
+     * @return {@code true} si se pudo añadir el Usuario correctamente, {@code false} en caso contrario.
      */
-    public void addUsuario( String claveUsuario, Usuario usuario ) {
+    public boolean addUsuario( String claveUsuario, Usuario usuario ) {
         usuarios.put( claveUsuario, usuario);
+        return true;
     }
     
     /**
@@ -321,6 +341,20 @@ public class BaseDatos {
         if( alumnosFDU.containsKey( numeroDeCuenta ))
         {
             alumnosFDU.remove( numeroDeCuenta );
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Método que borra a un Usuario de la base de datos.
+     * @param claveUsuario El identificador del Usuario existente que se quiere eliminar de la base de datos.
+     * @return {@code true} si se pudo eliminar exitosamente, {@code false} en caso contrario, e.g. el usuario especificado no se encontró en la base de datos.
+     */
+    public boolean deleteUsuario( String claveUsuario ) {
+        if( usuarios.containsKey( claveUsuario ) )
+        {
+            usuarios.remove( claveUsuario );
             return true;
         }
         return false;
@@ -382,6 +416,19 @@ public class BaseDatos {
             claveUsuario = keysUsuarios.nextElement();
             usuario = usuarios.get( claveUsuario );
             usuario.imprimirUsuario();
+        }
+    }
+    
+    /**
+     * Método que imprime en pantalla el historial de todos los registros de inicio de sesión a la aplicación.
+     */
+    public void imprimirRegistroAccesos() {
+        System.out.println("HISTORIAL DE INGRESOS AL SISTEMA");
+        System.out.println("Las siguientes personas iniciaron sesión en las fechas especificadas.");
+        
+        for(RegistroLogin login : historialLogin )
+        {
+            login.imprimir();
         }
     }
 }

@@ -62,6 +62,18 @@ public class Sistema {
     }
     
     /**
+     * Interfaz que hace una petición a la base de datos para obtener el nombre de un Usuario.
+     * @param claveUsuario Clave identificador del Usuario cuyo nombre se quiere obtener.
+     * @return El nombre del Usuario si éste se mapea correctamente en la base de datos, o {@code null} en caso contrario.
+     */
+    public static String getNombreAcademico( String claveUsuario ) {
+        if( bd.existeUsuario(claveUsuario) )
+            return bd.getNombreUsuario( claveUsuario );
+        else
+            return null;
+    }
+    
+    /**
      * Interfaz que hace una petición a la base de datos para obtener al objeto de tipo Asignatura asociada a una valor clave de asignatura.
      * @param claveAsignatura La clave de la Asignatura que se quiere obtener.
      * @return El objeto de tipo Asignatura hallado, o {@code null} en caso de que no se haya encontrado.
@@ -94,5 +106,52 @@ public class Sistema {
      */
     public static void imprimirAcademicos() {
         bd.imprimirAcademicos();
+    }
+    
+    /**
+     * Interfaz que hace una petición a la base de datos para añadir un nuevo Usuario a la base de datos.
+     * @param usuario El objeto de tipo Usuario que se añadirá a la base de datos.
+     */
+    public static boolean agregarAcademico( Usuario usuario ) {
+        return bd.addUsuario( usuario.getClave(), usuario);
+    }
+    
+    /**
+     * Interfaz que hace una petición a la base de datos para modificar los campos de algún Usuario.
+     * El proeso de modificación funciona destruyendo la instancia que existía del Usuario, y creando una nueva.
+     * @param claveOriginalUsuario La clave que le pertenecía al Usuario que se quiere modificar.
+     * @param usuarioModificado El objeto de tipo Usuario que reemplazará al que existía.
+     */
+    public static boolean modificarAcademico( String claveOriginalUsuario, Usuario usuarioModificado ) {
+        if ( bd.deleteUsuario( claveOriginalUsuario ) )
+        {
+            bd.addUsuario( usuarioModificado.getClave(), usuarioModificado);
+            return true;
+        }
+        else
+            return false;
+    }
+    
+    /**
+     * Interfaz que hace una petición a la base de datos para eliminar a un Usuario.
+     * @param claveUsuario La clave identificador del Usuario que se quiere borrar.
+     * @return {@code true} si no hubo problemas al eliminarlo, {@code false} en caso contrario.
+     */
+    public static boolean eliminarAcademico( String claveUsuario ) {
+        if( bd.existeUsuario( claveUsuario ) )
+        {
+            return bd.deleteUsuario( claveUsuario );
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
+     * Interfaz que hace una petición a la base de datos para imprimir en pantalla el historial de registro de inicio de sesión de la aplicación.
+     */
+    public static void verificarAccesos() {
+        bd.imprimirRegistroAccesos();
     }
 }
