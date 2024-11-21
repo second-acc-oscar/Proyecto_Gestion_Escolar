@@ -69,7 +69,7 @@ public class Sistema {
     public static Asignatura getAsignatura( String claveAsignatura ) {
         return bd.getAsignatura( claveAsignatura );
     }
-    
+
     /**
      * Interfaz que hace una petición a la base de datos para saber si una clave está asociada efectivamente a un Usuario.
      * @param claveUsuario La clave que utiliza el Usuario para iniciar sesión.
@@ -87,5 +87,12 @@ public class Sistema {
      */
     public static boolean coincideContrasena( String claveUsuario, String contra ) {
         return bd.coincideContrasena( claveUsuario, contra );
+    }
+    
+    /**
+     * Interfaz que hace una petición a la base de datos para imprimirla información de todos los Usuarios (académicos) dados de alta en la base de datos.
+     */
+    public static void imprimirAcademicos() {
+        bd.imprimirAcademicos();
     }
 }

@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import modelo.AppClasses.Alumno;
 import modelo.AppClasses.Asignatura;
@@ -367,5 +368,20 @@ public class BaseDatos {
             return false;
         else
             return usuarios.get( claveUsuario ).getPassword().equals( contra );
+    }
+    
+    /**
+     * Método que imprime la información de todos los académicos.
+     */
+    public void imprimirAcademicos() {
+        Enumeration<String> keysUsuarios = usuarios.keys();
+        String claveUsuario;
+        Usuario usuario;
+        
+        while( keysUsuarios.hasMoreElements() ) {
+            claveUsuario = keysUsuarios.nextElement();
+            usuario = usuarios.get( claveUsuario );
+            usuario.imprimirUsuario();
+        }
     }
 }
