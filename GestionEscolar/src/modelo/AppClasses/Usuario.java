@@ -19,6 +19,24 @@ public class Usuario {
      * Contraseña que utiliza el Usuario para ingresar al sistema.
      */
     private String password;
+    
+    /**
+     * Método que crea una nueva instancia vacía de Usuario.
+     */
+    public Usuario() {
+    }
+
+    /**
+     * Método que crea una nueva instancia de Usuario llena.
+     * @param nombreUsuario Nombre completo de la persona que accede al sistema (Usuario).
+     * @param clave Usuario / clave de acceso que utiliza el Usuario para identificarse al momento de acceder al sistema.
+     * @param password Contraseña que utiliza el Usuario para ingresar al sistema.
+     */
+    public Usuario(String nombreUsuario, String clave, String password) {
+        this.nombreUsuario = nombreUsuario;
+        this.clave = clave;
+        this.password = password;
+    }
 
     /**
      * Método que devuelve el nombre del Usuario.
