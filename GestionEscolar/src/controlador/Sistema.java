@@ -2,6 +2,7 @@ package controlador;
 
 import modelo.BaseDatos;
 import modelo.AppClasses.Asignatura;
+import modelo.AppClasses.Usuario;
 
 /**
  * Clase representante del controlador para el resto de la lógica del programa.
@@ -67,5 +68,24 @@ public class Sistema {
      */
     public static Asignatura getAsignatura( String claveAsignatura ) {
         return bd.getAsignatura( claveAsignatura );
+    }
+    
+    /**
+     * Interfaz que hace una petición a la base de datos para saber si una clave está asociada efectivamente a un Usuario.
+     * @param claveUsuario La clave que utiliza el Usuario para iniciar sesión.
+     * @return {@code true} si hay un registro con esa clave, {@code false} en caso contrario.
+     */
+    public static boolean existeUsuario( String claveUsuario ) {
+        return bd.existeUsuario( claveUsuario );
+    }
+    
+    /**
+     * Interfaz que hace una petición a la base de datos para saber si una clave asociada efectiva
+     * @param claveUsuario
+     * @param contra
+     * @return 
+     */
+    public static boolean coincideContrasena( String claveUsuario, String contra ) {
+        return bd.coincideContrasena( claveUsuario, contra );
     }
 }

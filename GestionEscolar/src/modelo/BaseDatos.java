@@ -342,4 +342,30 @@ public class BaseDatos {
         }
         return null;
     }
+    
+    /**
+     * Método que busca el registro de un Usuario según la clave (usuario) que utiliza para iniciar sesión en el sistema.
+     * @param claveUsuario
+     * @return 
+     */
+    public boolean existeUsuario( String claveUsuario ) {
+        if( usuarios.containsKey( claveUsuario ) )
+            return true;
+        else
+            return false;
+    }
+    
+    /**
+     * Método que busca el registro de un Usuario sagún la clave (usuario) que utiliza para inciiar sesión en el sistema, y un intento de hacer login con una contraseña en específico se busca sea <b>certero</b>.
+     * Se conoce como contraseña certera a la contraseña oficial y <b>correcta</b> la que está asociada a un usuario en la base de datos.
+     * @param claveUsuario El usuario cuya coincidencia de contraseña se quiere corroborar.
+     * @param contra La contraseña que se quiere contrastar con la certera.
+     * @return {@code true} si la contraseña dada coincide con la certera, {@code false} en caso contrario.
+     */
+    public boolean coincideContrasena( String claveUsuario, String contra ) {
+        if( ! existeUsuario( claveUsuario ) )
+            return false;
+        else
+            return usuarios.get( claveUsuario ).getPassword().equals( contra );
+    }
 }
