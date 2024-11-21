@@ -137,7 +137,8 @@ public class Admin {
      * @param contrasena 
      */
     private static void agregarAcademicos(String nombre, String clave, String contrasena){
-        Sistema.agregarAcademico(nombre, clave, contrasena);
+        Usuario usuario = new Usuario(nombre, clave, contrasena);
+        Sistema.agregarAcademico(usuario);
         System.out.println("Se agrego el academico solicitado");
     }
     
