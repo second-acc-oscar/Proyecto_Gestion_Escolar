@@ -1,6 +1,6 @@
 package modelo.AppClasses;
 
-import controlador.CalculoNoIncripcion;
+import controlador.CalculoNoInscripcion;
 
 /**
  * Clase que representa a un <b>par</b> que agrupa a un alumno (identificable por su número de cuenta) y el indicador escolar de éste.

@@ -7,7 +7,7 @@ import modelo.AppClasses.AlumnoNumeroInscripcion;
  * Clase que se encarga de la lógica para calcular el número de inscripción.
  * @author Saúl Ojeda
  */
-public class CalculoNoIncripcion {
+public class CalculoNoInscripcion {
 
     /**
      * Método que se encarga de realizar el cálculo y asignación del número de inscripción.

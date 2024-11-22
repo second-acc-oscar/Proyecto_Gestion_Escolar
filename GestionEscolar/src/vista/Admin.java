@@ -20,14 +20,36 @@ public class Admin {
     private static final String USUARIO_ADMIN = "Admin";
     
     /**
+     * Método que devuelve el usuario reconocido como administrador para iniciar sesión.
+     * @return El usuario del administrador.
+     */
+    public static String getUsuario() {
+        return USUARIO_ADMIN;
+    }
+    
+    /**
+     * Método que devuelve la contraseña reconocida para el administrador al iniciar sesión.
+     * @return La contraseña del administrador.
+     */
+    public static String getContra() {
+        return CONTRA_ADMIN;
+    }
+    
+    /**
      * Metodo encargado de iniciar las acciones de la clase basado en la opción solicitada por el usuario
      */
     public static void iniciar(){
         /**
          * Fragmento de codigo encargado de solicitar al usuario la accsion deseada haciendo uso de un while y un switch
          */
-        System.out.println("Hola Administrador\n ¿Que cambio quiere hacer?");
-        System.out.println("1)Consultar academicos \n2)Agregar algún academico \n3)Modificar algun academico \n4)Eliminar algun academico \n5)Verificar los accesos \n6)Salir");
+        System.out.println("Hola, Administrador"
+                + "\n¿Que cambio quiere hacer?"
+                + "\n\t1)Consultar academicos "
+                + "\n\t2)Agregar algún academico "
+                + "\n\t3)Modificar algun academico "
+                + "\n\t4)Eliminar algun academico "
+                + "\n\t5)Verificar los accesos "
+                + "\n\t6)Salir");
         try {
             Scanner lectura = new Scanner(System.in);
             int op = lectura.nextInt();

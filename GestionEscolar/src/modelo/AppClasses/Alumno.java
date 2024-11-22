@@ -120,16 +120,14 @@ public class Alumno {
      * @param nombre El nombre del Alumno. Si tiene dos nombres, se almacena en la misma cadena.
      * @param apellidoPaterno El primer apellido del Alumno.
      * @param apellidoMaterno El segundo apellido del Alumno.
-     * @param numeroDeCuenta El número de cuenta del Alumno es el identificador único de cada alumno dado de alta en el sistema y consta de nueve dígitos numéricos.
      * @param domicilio Cadena que contiene la dirección física en la que vive el Alumno.
      * @param correo Dirección de correo electrónico del alumno formado por su nombre y apellidos.
      * @param edad Edad en años del Alumno.
      */
-    public Alumno(String nombre, String apellidoPaterno, String apellidoMaterno, String domicilio, String correo, int edad, int numeroDeCuenta) {
+    public Alumno(String nombre, String apellidoPaterno, String apellidoMaterno, String domicilio, String correo, int edad) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
-        this.numeroDeCuenta = numeroDeCuenta;
         this.domicilio = domicilio;
         this.correo = correo;
         this.edad = edad;
@@ -674,8 +672,16 @@ public class Alumno {
      * @param edad Edad en años del Alumno.
      * @param numeroDeCuenta El número de cuenta del Alumno es el identificador único de cada alumno dado de alta en el sistema y consta de nueve dígitos numéricos.
      */
-    public static void generarAlumnoNoAleatorio( String nombre, String apellidoPaterno, String apellidoMaterno, String domicilio, String correo, int edad, int numeroDeCuenta ) {
-        Alumno alumno = new Alumno( nombre, apellidoPaterno, apellidoMaterno, domicilio, correo, edad, numeroDeCuenta );
+    public static void generarAlumnoNoAleatorio( String nombre, String apellidoPaterno, String apellidoMaterno, String domicilio, String correo, int edad ) {
+        int noCuenta;
+        
+        Alumno alumno = new Alumno( nombre, apellidoPaterno, apellidoMaterno, domicilio, correo, edad );
+        noCuenta = Alumno.generarNumeroDeCuenta();
+        while( Sistema.existeAlumno(noCuenta) )
+        {
+            noCuenta = Alumno.generarNumeroDeCuenta();
+        }
+        alumno.setNumeroDeCuenta( noCuenta );
         alumno.setNumeroDeInscripcion( 0 );
         alumno.setSemestreRegular( Alumno.generarSemestreRegular( alumno.getEdad() ) );
         Alumno.generarHistorialAcademico( alumno );

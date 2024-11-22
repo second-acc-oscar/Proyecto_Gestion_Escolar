@@ -445,6 +445,14 @@ public class BaseDatos {
     }
     
     /**
+     * Método que imprime la información de todos los Alumnos.
+     */
+    public void imprimirAlumnos() {
+        for( Alumno alumno : alumnosOrdinarios.values() )
+            alumno.imprimirAlumno();
+    }
+    
+    /**
      * Método que imprime la información de todos los académicos.
      */
     public void imprimirAcademicos() {

@@ -25,7 +25,7 @@ public class Sistema {
     private static BaseDatos bd = BaseDatos.getInstance();
     
     /**
-     * Punto de acceso para inicializar la base de datos del Sistema a partir del sistema de Archivos.
+     * Punto de acceso para inicializar la base de datos de la aplicación a partir del sistema de Archivos.
      * Se inicializarán ciertos campos de la aplicación dependiendo si es un administrador el que está iniciando sesión, o un usuario.
      * @param paraAdmin Indica si se requiere inicializar la base de datos con la información que requiere un administrador.
      * @return {@code true} si no hubo ningún problema al inicializa base de datos, {@code false} en caso contrario.
@@ -37,8 +37,16 @@ public class Sistema {
             return Archivos.inicializarBaseDatosParaUsuarios( bd );
     }
     
+    /**
+     * Punto de acceso para escribir y actualizar la base de datos de la aplicación a partir del sistema de Archivos.
+     * Se escribirán ciertos campos de la aplicación dependiendo si es un administrador el que cerró la sesión, o un usuario.
+     * @param paraAdmin Indica si se requiere inicializar la base de datos con la información que requiere un administrador.
+     */
     public static void escribirArchivos( boolean paraAdmin ) {
-        
+        if( paraAdmin )
+            Archivos.escribirBaseDatosParaAdmin( bd );
+        else
+            Archivos.escribirBaseDatosParaUsuario( bd );
     }
 
     /**
@@ -105,6 +113,14 @@ public class Sistema {
     }
     
     /**
+     * Interfaz que hace una petición a la base de datos para obtener el número de alumnos que hay en la base de datos.
+     * @return El número de alumnos que hay en la base de datos.
+     */
+    public static int getNumAlumnos() {
+        return bd.getNumAlumnos();
+    }
+    
+    /**
      * Interfaz que hace una petición a la base de datos para obtener la contraseña de un Usuario.
      * @param claveUsuario Clave identificador del Usuario cuya contraseña se quiere obtener.
      * @return La contraseña del Usuario si éste se mapea correctamente en la base de datos, o {@code null} en caso contrario.
@@ -152,6 +168,13 @@ public class Sistema {
     }
     
     /**
+     * Interfaz que hace una petición a la base de datos para imprimirla información de todos los Alumnos dados de alta en la base de datos.
+     */
+    public static void imprimirAlumnos() {
+        bd.imprimirAlumnos();
+    }
+    
+    /**
      * Interfaz que hace una petición a la base de datos para añadir un nuevo Usuario a la base de datos.
      * @param usuario El objeto de tipo Usuario que se añadirá a la base de datos.
      */
@@ -189,6 +212,14 @@ public class Sistema {
         {
             return false;
         }
+    }
+    
+    /**
+     * Interfaz que hace una petición a la base de datos para eliminar a un Alumno.
+     * @param numeroCuenta El número de cuenta del Alumno que se quiere eliminar.
+     */
+    public static void eliminarEstudiante( int numeroCuenta ) {
+        bd.deleteAlumnoOrdinario(numeroCuenta);
     }
     
     /**
