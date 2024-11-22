@@ -95,4 +95,23 @@ public class Usuario {
                 + "\n\tUsuario:\t" + this.getClave()
                 + "\n\tContraseña:\t" + this.getPassword());
     }
+    
+    /**
+     * Método que convierte el estado de los atributos de un objeto de tipo Usuario en una cadena con formato CSV.
+     * @return El estado de los atributos del objeto en cadena, separados cada uno por comas (formato CSV).
+     */
+    public String toCSV() {
+        String coma = ",";
+        return nombreUsuario + coma + clave + coma + password;
+    }
+    
+    /**
+     * Método que convierte el estado de los atributos del Usuario en el formato establecido para su escritura en archivos para almacenamiento.
+     * Dicho formato es, cada atributo separado entre medio por saltos de línea.
+     * @return 
+     */
+    public String toFile() {
+        String newLine = "\n";
+        return nombreUsuario + newLine + clave + newLine + password;
+    }
 }

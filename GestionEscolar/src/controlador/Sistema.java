@@ -1,8 +1,13 @@
 package controlador;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import modelo.AppClasses.Alumno;
+import modelo.AppClasses.AlumnoNumeroInscripcion;
 import modelo.BaseDatos;
 import modelo.AppClasses.Asignatura;
 import modelo.AppClasses.Usuario;
+import modelo.Archivos;
 
 /**
  * Clase representante del controlador para el resto de la lógica del programa.
@@ -18,6 +23,23 @@ public class Sistema {
      * Instancia única de la base de datos. Requerida para realizar las peticiones.
      */
     private static BaseDatos bd = BaseDatos.getInstance();
+    
+    /**
+     * Punto de acceso para inicializar la base de datos del Sistema a partir del sistema de Archivos.
+     * Se inicializarán ciertos campos de la aplicación dependiendo si es un administrador el que está iniciando sesión, o un usuario.
+     * @param paraAdmin Indica si se requiere inicializar la base de datos con la información que requiere un administrador.
+     * @return {@code true} si no hubo ningún problema al inicializa base de datos, {@code false} en caso contrario.
+     */
+    public static boolean inicializarBaseDeDatos( boolean paraAdmin ) {
+        if( paraAdmin )
+            return Archivos.inicializarBaseDatosParaAdmin( bd );
+        else
+            return Archivos.inicializarBaseDatosParaUsuarios( bd );
+    }
+    
+    public static void escribirArchivos( boolean paraAdmin ) {
+        
+    }
 
     /**
      * Interfaz que hace una petición a la base de datos para obtener un nombre cualquiera de los disponibles en la base de datos.
@@ -71,6 +93,15 @@ public class Sistema {
             return bd.getNombreUsuario( claveUsuario );
         else
             return null;
+    }
+    
+    /**
+     * Interfaz que hace una petición a la base de datos para obtener la instancia de Alumno asociada a un número de cuenta.
+     * @param numeroDeCuenta El número de cuenta del Alumno buscado.
+     * @return El Alumno asociado al número de cuenta, o {@code null} si no se encontró.
+     */
+    public static Alumno getAlumno( int numeroDeCuenta ) {
+        return bd.getAlumno(numeroDeCuenta);
     }
     
     /**
@@ -161,9 +192,32 @@ public class Sistema {
     }
     
     /**
+     * Interfaz que hace una petición a la base de datos para añadir un nuevo objeto de tipo Alumno a la base de datos.
+     * @param alumno El Alumno que se quiere añadir a la base de datos.
+     */
+    public static void agregarAlumnoOrdinario( Alumno alumno ) {
+        bd.addAlumnoOrdinario(alumno);
+    }
+    
+    /**
      * Interfaz que hace una petición a la base de datos para imprimir en pantalla el historial de registro de inicio de sesión de la aplicación.
      */
     public static void verificarAccesos() {
         bd.imprimirRegistroAccesos();
+    }
+    
+    /**
+     * Método que crea y devuelve la lista de pares AlumnoNumeroInscripcion necesaria para realizar el cálculo del número de inscripción.
+     * @return La lista de pares AlumnoNumeroInscripcion de alumnos ordinarios.
+     */
+    public static ArrayList<AlumnoNumeroInscripcion> getListaAlumnoNumeroInscripcion() {
+        ArrayList<AlumnoNumeroInscripcion> lista = new ArrayList<AlumnoNumeroInscripcion>();
+        Collection<Alumno> alumnos = bd.getAlumnosOrdinarios();
+        
+        for(Alumno alumno : alumnos) {
+            lista.add( new AlumnoNumeroInscripcion( alumno.getNumeroDeCuenta(), alumno.getIndicadorEscolar() ) );
+        }
+        
+        return lista;
     }
 }

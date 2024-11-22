@@ -34,10 +34,12 @@ public class RegistroLogin {
      * Crea una nueva instancia de RegistroLogin llena.
      * @param fecha La fecha en que se realizó el inicio de sesión en el sistema, encapsulado en un objeto de tipo LocalDate.
      * @param hora La hora en que se realizó el inicio de sesión en el sistema, encapsulado en un objeto de tipo LocalTime.
+     * @param claveUsuario El identificador del usuario que inición sesión en el sistema.
      */
-    public RegistroLogin(LocalDate fecha, LocalTime hora) {
+    public RegistroLogin(String claveUsuario, LocalDate fecha, LocalTime hora) {
         this.fecha = fecha;
         this.hora = hora;
+        this.claveUsuario = claveUsuario;
     }
     
     /**
@@ -45,5 +47,14 @@ public class RegistroLogin {
      */
     public void imprimir() {
         System.out.println("\tUsuario:\t" + Sistema.getNombreAcademico(this.claveUsuario) + "\tAcceso:\t" + fecha + "\tHora:\t" + hora );
+    }
+    
+    /**
+     * Método que convierte el estado de los atributos del RegistroLogin en una cadena con formato CSV.
+     * @return El estado de los atributos del objeto en cadena, separados cada uno por comas (formato CSV).
+     */
+    public String toCSV() {
+        String coma = ",";
+        return claveUsuario + coma + fecha + coma + hora;
     }
 }

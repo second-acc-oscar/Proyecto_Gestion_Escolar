@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import modelo.AppClasses.Alumno;
@@ -73,6 +74,9 @@ public class BaseDatos {
      */
     private Hashtable<String, Usuario> usuarios = new Hashtable<String, Usuario>();
     
+    /**
+     * Lista de los inicios de sesión que han habido en el programa.
+     */
     private ArrayList<RegistroLogin> historialLogin = new ArrayList<RegistroLogin>();
     
     /**
@@ -80,7 +84,6 @@ public class BaseDatos {
      * Visibilidad privada para la implementación del patrón de diseño Singleton.
      */
     private BaseDatos() {
-        
     }
     
     /**
@@ -209,6 +212,14 @@ public class BaseDatos {
     }
     
     /**
+     * Método que devuelve todos los objetos de tipo Alumno dados de alta en la base de datos como ordinarios.
+     * @return Una colección de todos los alumnos ordinarios en la base de datos como ordinarios.
+     */
+    public Collection<Alumno> getAlumnosOrdinarios() {
+        return alumnosOrdinarios.values();
+    }
+    
+    /**
      * Método que regresa el objeto de tipo Alumno especificado como alumno ordinario.
      * @param numeroCuenta El número de cuenta del alumno que se quiere buscar.
      * @return El Alumno encontrado, o {@code null} si el Alumno especificado no existe en la base de datos.
@@ -269,6 +280,14 @@ public class BaseDatos {
     }
     
     /**
+     * Método que devuelve todos los objetos de tipo Usuario dados de alta en la base de datos.
+     * @return Una colección de todos los Usuarios en la base de datos.
+     */
+    public Collection<Usuario> getUsuarios() {
+        return usuarios.values();
+    }
+    
+    /**
      * Utilizado por la clase {@code Archivos} para inflar la información en la base de datos local de los posibles nombres para alumnos, según los archivos leídos.
      * @param nombre El nombre a añadir a la base de datos.
      */
@@ -325,6 +344,17 @@ public class BaseDatos {
      */
     public boolean addUsuario( String claveUsuario, Usuario usuario ) {
         usuarios.put( claveUsuario, usuario);
+        return true;
+    }
+    
+    /**
+     * Método que añade a la base de datos del sistema un objeto nuevo de tipo registro login.
+     * Añade el último registro de sesión registrado en el sistema.
+     * @param login El nuevo objeto de tipo RegistroLogin.
+     * @return {@code true} si no hubo problemas al añadirlo, {@code false} en caso contrario.
+     */
+    public boolean addRegistroLogin( RegistroLogin login ) {
+        historialLogin.add( login );
         return true;
     }
     

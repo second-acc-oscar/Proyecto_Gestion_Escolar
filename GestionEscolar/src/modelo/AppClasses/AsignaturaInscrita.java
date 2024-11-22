@@ -1,5 +1,7 @@
 package modelo.AppClasses;
 
+import controlador.Sistema;
+
 /**
  * Wrapper para Asignatura, contiene información relevante de los datos del estudiante que la inscribió.
  * Sirve para tener en orden el historial académico y realizar el cómputo de su escolaridad.
@@ -22,7 +24,7 @@ public class AsignaturaInscrita {
      * Número del semestre en el cuál el Alumno inscribió por última vez la Asignatura.
      * Puede no coincidir con el semestre regular en el cuál se está prevista inscriba/apruebe la materia.
      */
-    private int semestreIncripcion;
+    private int semestreInscripcion;
     
     /**
      * Número de inscripciones que el Alumno hizo a esta asignatura antes de aprobarla.
@@ -45,7 +47,7 @@ public class AsignaturaInscrita {
     public AsignaturaInscrita(String claveAsignatura, float calificacionObtenida, int semestreIncripcion, int inscripciones) {
         this.claveAsignatura = claveAsignatura;
         this.calificacionObtenida = calificacionObtenida;
-        this.semestreIncripcion = semestreIncripcion;
+        this.semestreInscripcion = semestreIncripcion;
         this.inscripciones = inscripciones;
     }
 
@@ -85,16 +87,16 @@ public class AsignaturaInscrita {
      * Método que devuelve el número de semestres que han pasado desde que el Alumno inició la carrera donde inscribió por última vez la Asignatura.
      * @return Un número entero, el último semestre donde se inscribió la Asignatura.
      */
-    public int getSemestreIncripcion() {
-        return semestreIncripcion;
+    public int getSemestreInscripcion() {
+        return semestreInscripcion;
     }
 
     /**
      * Método que establece el número de semestres que han pasado desde que el Alumno inició la carrera donde inscribió por última vez la Asignatura.
-     * @param semestreIncripcion Un número entero, el último semestre donde se inscribió la Asignatura.
+     * @param semestreInscripcion Un número entero, el último semestre donde se inscribió la Asignatura.
      */
-    public void setSemestreIncripcion(int semestreIncripcion) {
-        this.semestreIncripcion = semestreIncripcion;
+    public void setSemestreInscripcion(int semestreInscripcion) {
+        this.semestreInscripcion = semestreInscripcion;
     }
 
     /**
@@ -111,5 +113,25 @@ public class AsignaturaInscrita {
      */
     public void setInscripciones(int inscripciones) {
         this.inscripciones = inscripciones;
-    }    
+    }
+    
+    /**
+     * Método que devuelve el número de créditos obtenidos por el Alumno según si aprobó la Asignatura o no.
+     * @return El número de créditos de la Asignatura si es que ya la aprobó, cero en caso contrario.
+     */
+    public int getCreditos() {
+        if( calificacionObtenida >= 6.0f )
+            return Sistema.getAsignatura( claveAsignatura ).getCreditos();
+        else
+            return 0;
+    }
+    
+    /**
+     * Método que convierte el estado de los atributos de un objeto de tipo AsignaturaInscrita en una cadena con formato CSV.
+     * @return El estado de los atributos del objeto en cadena, separados cada uno por comas (formato CSV).
+     */
+    public String toCSV() {
+        String coma = ",";
+        return claveAsignatura + coma + calificacionObtenida + coma + semestreInscripcion + coma + inscripciones;
+    }
 }

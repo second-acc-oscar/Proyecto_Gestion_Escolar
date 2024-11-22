@@ -116,6 +116,26 @@ public class Alumno {
     }
 
     /**
+     * Método que crea una instancia de Alumno con solamente algunos de sus parámetros inicializados.
+     * @param nombre El nombre del Alumno. Si tiene dos nombres, se almacena en la misma cadena.
+     * @param apellidoPaterno El primer apellido del Alumno.
+     * @param apellidoMaterno El segundo apellido del Alumno.
+     * @param numeroDeCuenta El número de cuenta del Alumno es el identificador único de cada alumno dado de alta en el sistema y consta de nueve dígitos numéricos.
+     * @param domicilio Cadena que contiene la dirección física en la que vive el Alumno.
+     * @param correo Dirección de correo electrónico del alumno formado por su nombre y apellidos.
+     * @param edad Edad en años del Alumno.
+     */
+    public Alumno(String nombre, String apellidoPaterno, String apellidoMaterno, String domicilio, String correo, int edad, int numeroDeCuenta) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.numeroDeCuenta = numeroDeCuenta;
+        this.domicilio = domicilio;
+        this.correo = correo;
+        this.edad = edad;
+    }
+
+    /**
      * Método que devuelve el nombre (o nombres) del Alumno.
      * @return Una cadena con el nombre del Alumno. Si tiene dos nombres, se encuentran concatenados en la misma variable.
      */
@@ -335,6 +355,22 @@ public class Alumno {
      */
     public void setNumeroDeInscripcion(int numeroDeInscripcion) {
         this.numeroDeInscripcion = numeroDeInscripcion;
+    }
+    
+    /**
+     * Método que calcula el indicador escolar del Alumno y lo devuelve.
+     * El cálculo del indicador escolar del Alumno se hace de la siguiete forma:
+     *       indicadorEscolar = promedio * escolaridad * velocidad
+     * Tal que:
+     *       escolaridad = asignaturasAprobadasEnOrdinario / asignaturasInscritasEnOrdinario * 100
+     *       velocidad = créditosDelAlumno / créditosDesdeElIngreso * 100
+     * @return La escolaridad del Alumno.
+     */
+    public double getIndicadorEscolar() {
+        double escolaridad = (asignaturasAprobadas / asignaturasInscritas) * 100;
+        double velocidad = (historialAcademico.getCreditos() / PlanDeEstudios.getCreditosHastaSemestre(semestreRegular) ) * 100;
+        double promedio = (double)promedioGeneral;
+        return promedio * escolaridad * velocidad;
     }
     
     /**
@@ -586,9 +622,9 @@ public class Alumno {
                 AsignaturaInscrita asignatura = new AsignaturaInscrita();
                 
                 asignatura.setClaveAsignatura( claveAsig );
-                asignatura.setSemestreIncripcion( Alumno.generarSemestreInscripcion( Sistema.getAsignatura(claveAsig), alumno.getSemestreRegular() ) );
+                asignatura.setSemestreInscripcion( Alumno.generarSemestreInscripcion( Sistema.getAsignatura(claveAsig), alumno.getSemestreRegular() ) );
                 asignatura.setCalificacionObtenida( Alumno.generarCalificacionObtenida( Sistema.getAsignatura(claveAsig), alumno.getSemestreRegular() ) );
-                asignatura.setInscripciones( Alumno.generarInscripcion( asignatura.getSemestreIncripcion(), alumno.getSemestreRegular() ) );
+                asignatura.setInscripciones( Alumno.generarInscripcion( asignatura.getSemestreInscripcion(), alumno.getSemestreRegular() ) );
                 
                 alumno.getHistorialAcademico().addAsignatura( asignatura );
             }
@@ -597,6 +633,7 @@ public class Alumno {
     
     /**
      * Módulo generador de datos personales para la instanciación de Alumnos automática.
+     * Despés de crear el Alumno aleatorio, lo guarda en la base de datos.
      * @return Un objeto de tipo Alumno totalmente válido.
      */
     public static Alumno generarAlumnoAleatorio() {
@@ -622,7 +659,31 @@ public class Alumno {
         alumno.setAsignaturasAprobadas( alumno.getHistorialAcademico().getAsignaturasAprobadas() );
         alumno.setPromedioGeneral( alumno.getHistorialAcademico().getPromedioGeneral() );
         
+        Sistema.agregarAlumnoOrdinario( alumno );
+        
         return alumno;
+    }
+    
+    /**
+     * Método que termina de instanciar los datos de un Alumno que fue creado por el Usuario.
+     * @param nombre El nombre del Alumno. Si tiene dos nombres, se almacena en la misma cadena.
+     * @param apellidoPaterno El primer apellido del Alumno.
+     * @param apellidoMaterno El segundo apellido del Alumno.
+     * @param domicilio Cadena que contiene la dirección física en la que vive el Alumno.
+     * @param correo Dirección de correo electrónico del alumno formado por su nombre y apellidos.
+     * @param edad Edad en años del Alumno.
+     * @param numeroDeCuenta El número de cuenta del Alumno es el identificador único de cada alumno dado de alta en el sistema y consta de nueve dígitos numéricos.
+     */
+    public static void generarAlumnoNoAleatorio( String nombre, String apellidoPaterno, String apellidoMaterno, String domicilio, String correo, int edad, int numeroDeCuenta ) {
+        Alumno alumno = new Alumno( nombre, apellidoPaterno, apellidoMaterno, domicilio, correo, edad, numeroDeCuenta );
+        alumno.setNumeroDeInscripcion( 0 );
+        alumno.setSemestreRegular( Alumno.generarSemestreRegular( alumno.getEdad() ) );
+        Alumno.generarHistorialAcademico( alumno );
+        alumno.setAsignaturasInscritas( alumno.getHistorialAcademico().getAsignaturasInscritas() );
+        alumno.setAsignaturasAprobadas( alumno.getHistorialAcademico().getAsignaturasAprobadas() );
+        alumno.setPromedioGeneral( alumno.getHistorialAcademico().getPromedioGeneral() );
+        
+        Sistema.agregarAlumnoOrdinario( alumno );
     }
     
     /**
@@ -645,12 +706,12 @@ public class Alumno {
     }
     
     /**
-     * Método que convierte el estado de los atributos relevantes (no incluído historial académico) de un objeto de tipo Alumno en una cadena con formato CSV.
+     * Método que convierte el estado de los atributos relevantes (no incluído historial académico) del Alumno en una cadena con formato CSV.
      * @return El estado de los atributos del objeto en cadena, separados cada uno por comas (formato CSV).
      */
     public String toCSV() {
         String coma = ",";
-        return nombre + coma + apellidoPaterno + coma + apellidoMaterno + coma + numeroDeCuenta + coma + domicilio + coma + correo + coma + promedioGeneral + coma + edad + coma + semestreRegular + coma + asignaturasInscritas + coma + asignaturasAprobadas;
+        return nombre + coma + apellidoPaterno + coma + apellidoMaterno + coma + numeroDeCuenta + coma + domicilio + coma + correo + coma + promedioGeneral + coma + edad + coma + semestreRegular + coma + asignaturasInscritas + coma + asignaturasAprobadas + coma + numeroDeInscripcion;
     }
 
     /**

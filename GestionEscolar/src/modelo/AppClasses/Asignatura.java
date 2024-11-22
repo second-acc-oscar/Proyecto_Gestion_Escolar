@@ -1,5 +1,7 @@
 package modelo.AppClasses;
 
+import modelo.BaseDatos;
+
 /**
  * Clase que una de las asignaturas en el plan de estudios de la carrera de Ing. en Computación de la Facultad de Ingeniería.
  * @author Oscar Rojas
@@ -192,7 +194,7 @@ public class Asignatura {
     public String getObjetivo() {
         return objetivo;
     }
-
+    
     /**
      * Método que establece el objetivo de la Asignatura que se espera el Alumno haya aprendido una vez curse la asignatura.
      * @param objetivo Una cadena con el objetivo de la Asignatura que se espera el Alumno haya aprendido una vez curse la asignatura.

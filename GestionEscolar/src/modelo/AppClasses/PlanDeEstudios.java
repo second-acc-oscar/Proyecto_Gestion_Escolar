@@ -110,4 +110,17 @@ public class PlanDeEstudios {
             case 10 -> DECIMO_SEMESTRE.add( claveAsignatura );
         }
     }
+    
+    public static int getCreditosHastaSemestre( int numeroSemestre ) {
+        int creditosAcumulados = 0;
+        
+        for( int i = 0; i < numeroSemestre; i++ )
+        {
+            for( String claveAsignatura : SEMESTRES.get(i) ) {
+                creditosAcumulados += Sistema.getAsignatura(claveAsignatura).getCreditos();
+            }
+        }
+        
+        return creditosAcumulados;
+    }
 }

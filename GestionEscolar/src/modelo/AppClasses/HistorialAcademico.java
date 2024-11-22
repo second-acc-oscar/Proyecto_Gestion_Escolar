@@ -15,6 +15,14 @@ public class HistorialAcademico {
     ArrayList<AsignaturaInscrita> asignaturasInscritas = new ArrayList<AsignaturaInscrita>();
     
     /**
+     * Método que devuelve la lista de AsignaturaInscrita que posee el HistorialAcademico del Alumno.
+     * @return La lista de AsignaturaInscrita del HistorialAcademico.
+     */
+    public ArrayList<AsignaturaInscrita> getAsignaturasHistorialAcademico() {
+        return asignaturasInscritas;
+    }
+    
+    /**
      * Método que computa el promedio general obtenido por el Alumno después de repasar todas las asignaturas que ha inscrito.
      * @return El promedio general del Alumno actualizado, en función de todas las asignaturas que ha inscrito.
      */
@@ -59,6 +67,21 @@ public class HistorialAcademico {
     }
     
     /**
+     * Método que retorna el avance curricular en bruto del Alumno según las materias que ya haya aprobado.
+     * El avance curricular en bruto es la suma de los créditos de las materias aprobadas.
+     * @return El número de créditos acumulados en todas las materias aprobadas.
+     */
+    public int getCreditos() {
+        int creditosAcumulados = 0;
+        
+        for( AsignaturaInscrita asig : asignaturasInscritas ) {
+            creditosAcumulados += asig.getCreditos();
+        }
+        
+        return creditosAcumulados;
+    }
+    
+    /**
      * Método que imprime en pantalla de manera amigable para el usuario el historial académico del Alumno.
      */
     public void mostrar() {
@@ -67,7 +90,7 @@ public class HistorialAcademico {
         {
             System.out.println("Asignatura:\t" + Sistema.getNombreAsignatura(asig.getClaveAsignatura())
                     + "\n\tCalificación:\t\t" + asig.getCalificacionObtenida()
-                    + "\n\tSemestre inscrito:\t" + asig.getSemestreIncripcion()
+                    + "\n\tSemestre inscrito:\t" + asig.getSemestreInscripcion()
                     + "\n\tInscripciones:\t\t" + asig.getInscripciones() );
         }
     }
