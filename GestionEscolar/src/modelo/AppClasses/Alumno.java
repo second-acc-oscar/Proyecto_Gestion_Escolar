@@ -670,7 +670,6 @@ public class Alumno {
      * @param domicilio Cadena que contiene la dirección física en la que vive el Alumno.
      * @param correo Dirección de correo electrónico del alumno formado por su nombre y apellidos.
      * @param edad Edad en años del Alumno.
-     * @param numeroDeCuenta El número de cuenta del Alumno es el identificador único de cada alumno dado de alta en el sistema y consta de nueve dígitos numéricos.
      */
     public static void generarAlumnoNoAleatorio( String nombre, String apellidoPaterno, String apellidoMaterno, String domicilio, String correo, int edad ) {
         int noCuenta;
