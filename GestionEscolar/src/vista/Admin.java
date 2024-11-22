@@ -39,117 +39,71 @@ public class Admin {
      * Metodo encargado de iniciar las acciones de la clase basado en la opción solicitada por el usuario
      */
     public static void iniciar(){
-        /**
-         * Fragmento de codigo encargado de solicitar al usuario la accsion deseada haciendo uso de un while y un switch
-         */
-        System.out.println("Hola, Administrador"
-                + "\n¿Que cambio quiere hacer?"
-                + "\n\t1)Consultar academicos "
-                + "\n\t2)Agregar algún academico "
-                + "\n\t3)Modificar algun academico "
-                + "\n\t4)Eliminar algun academico "
-                + "\n\t5)Verificar los accesos "
-                + "\n\t6)Salir");
-        try {
-            Scanner lectura = new Scanner(System.in);
-            int op = lectura.nextInt();
-            imprimirMenu(op);
-        }catch(java.util.InputMismatchException e){
-            System.out.println("Se ingresó una opción invalida\n");
-            iniciar();
-        }
-        
-    }
-    
-    /**
-     * Metodo encargado de ejecutar la opción seleccionada por el usuario
-     */
-    private static void imprimirMenu(int op){
         Scanner lectura = new Scanner(System.in);
-        while(op != 6){    
+        int op;
+        
+        do{
+            System.out.println("Hola, Administrador"
+                    + "\n¿Que cambio quiere hacer?"
+                    + "\n\t1)Consultar academicos "
+                    + "\n\t2)Agregar algún academico "
+                    + "\n\t3)Modificar algun academico "
+                    + "\n\t4)Eliminar algun academico "
+                    + "\n\t5)Verificar los accesos "
+                    + "\n\t6)Salir");
+            
+            op = lectura.nextInt(); 
+            
             switch(op){
-                case 1 -> {
-                    consultarAcademicos();
-                }
-                
+                case 1 -> Sistema.imprimirAcademicos();
+
                 case 2 -> {
-                    boolean tmpCl;
+                    lectura.nextLine();
                     System.out.println("Ingresa el nombre del academico a agregar: ");
-                    String nombre = lectura.next();
+                    String nombre = lectura.nextLine();
+
                     System.out.println("Ingresa la clave del academico a agregar: ");
-                    String clave = lectura.next();
-                    do{
-                        tmpCl = verificarClaveExistente(clave);
-                        if(tmpCl == true)
-                            System.out.println("Esa clave ya existe, use una diferente");
-                        else
-                            clave = lectura.next();
-                    }while(tmpCl != false);
+                    String clave = lectura.nextLine();
+
+                    while( Sistema.existeUsuario(clave) ){
+                        System.out.println("Esa clave ya existe, use una diferente");
+                        clave = lectura.nextLine();
+                    }
                     System.out.println("Ingresa la contraseña del academico a agregar: ");
-                    String contrasena = lectura.next();
+                    String contrasena = lectura.nextLine();
                     agregarAcademicos(nombre, clave, contrasena);
                 }
 
                 case 3 -> {
-                    boolean tmpCl;
                     System.out.println("Ingresa la clave del academico a modificar: ");
-                    String clave = lectura.next();
-                    do{
-                        tmpCl = verificarClaveExistente(clave);
-                        if(tmpCl == false)
-                            System.out.println("Esa clave no existe, use una diferente");
-                        else
-                            clave = lectura.next();
-                    }while(tmpCl != true);
+                    String clave = lectura.nextLine();
+                    while( ! Sistema.existeUsuario(clave) ){
+                        System.out.println("Esa clave no existe, use una diferente");
+                        clave = lectura.nextLine();
+                    }
                     modificarAcademicos(clave);
                 }
 
                 case 4 -> { 
-                    boolean tmpCl;
                     System.out.println("Ingresa la clave del academico a eliminar: ");
-                    String clave = lectura.next();
-                    do{
-                        tmpCl = verificarClaveExistente(clave);
-                        if(tmpCl == false)
-                            System.out.println("Esa clave no existe, use una diferente");
-                        else
-                            clave = lectura.next();
-                    }while(tmpCl != true);
+                    String clave = lectura.nextLine();
+                    while( ! Sistema.existeUsuario(clave) ){
+                        System.out.println("Esa clave no existe, use una diferente");
+                        clave = lectura.next();
+                    }
                     eliminarAcademicos(clave);
                 }
 
-                case 5 -> {
-                    verificarAcesos();
-                }
-                
-                case 6 -> {
-                    op = 6;
-                    System.out.println("Saliendo del sistema");
-                }
-                
+                case 5 -> verificarAcesos();
+
+                case 6 -> System.out.println("Saliendo del sistema");
+
                 default -> {
                     System.out.println("La opción ingresada es invalida");
                     System.out.println("Ingrese una nueva opcion valida");
-                    op = lectura.nextInt();
                 }
             }
-        }
-    }
-    
-    /**
-     * Metodo encargado de solicitar el sistema que imprima la lista de los academicos registrados
-     */
-    private static void consultarAcademicos() {
-        Sistema.imprimirAcademicos();
-    }
-    
-    /**
-     * Metodo encargado de informar si la clave ingresada existe
-     * @param clave
-     * @return 
-     */
-    private static boolean verificarClaveExistente(String clave){
-        return Sistema.existeUsuario(clave);
+        }while(op != 6);
     }
     
     /**
@@ -169,46 +123,48 @@ public class Admin {
      * @param clave
      */
     private static void modificarAcademicos(String clave){
-        System.out.println("Ingresa el numero correspondiente al dato que quieres modificar\n1)Nombre\n2)Clave\n3)Contraseña");
-        Scanner lectura = new Scanner(System.in);
-        int op = lectura.nextInt();        
-        do{    
+        int op;
+        Usuario usuario = Sistema.getUsuario( clave );
+        
+        do{   
+            System.out.println("Ingresa el numero correspondiente al dato que quieres modificar"
+                    + "\n1)Nombre"
+                    + "\n2)Clave"
+                    + "\n3)Contraseña");
+            Scanner lectura = new Scanner(System.in);
+            op = lectura.nextInt();        
+ 
             switch (op) {
                 case 1 -> {
+                    lectura.nextLine();
                     System.out.println("Ingrese el nuevo nombre");
-                    String nombre = lectura.next();
-                    String nclave = clave;
-                    String contrasena = Sistema.getContrasenaAcademico(clave);
-                    Usuario usuario = new Usuario(nombre, nclave, contrasena);
-                    Sistema.modificarAcademico(clave, usuario);
+                    String nombre = lectura.nextLine();
+                    usuario.setNombreUsuario(nombre);
                 }
 
                 case 2 -> {
-                    System.out.println("Ingrese la nueva Clave");
-                    String nclave = lectura.next();
-                    String nombre = Sistema.getNombreAcademico(clave);
-                    String contrasena = Sistema.getContrasenaAcademico(clave);
-                    Usuario usuario = new Usuario(nombre, nclave, contrasena);
-                    Sistema.modificarAcademico(clave, usuario);
+                    lectura.nextLine();
+                    System.out.println("Ingrese la nueva clave");
+                    String nclave = lectura.nextLine();
+                    usuario.setClave(nclave);
                 }
 
                 case 3 -> {
-                    System.out.println("Ingrese la nueva Contraseña");
-                    String contrasena = lectura.next();
-                    String nclave = clave;
-                    String nombre = Sistema.getNombreAcademico(clave);
-                    Usuario usuario = new Usuario(nombre, nclave, contrasena);
-                    Sistema.modificarAcademico(clave, usuario);
+                    lectura.nextLine();
+                    System.out.println("Ingrese la nueva contraseña");
+                    String contrasena = lectura.nextLine();
+                    usuario.setPassword(contrasena);
                 }
 
                 default -> {
                     System.out.println("La opción ingresada es invalida");
                     System.out.println("Ingrese una nueva opcion valida");
-                    op = lectura.nextInt();
                 }
             }
-        }while(op != 1 || op != 2  || op != 3);
-        System.out.println("Se elimino el academico solicitado");
+        }while(op != 1 && op != 2  && op != 3);
+        
+        
+        System.out.println("Se modificó el academico solicitado");
     }
     
     /**
@@ -224,6 +180,5 @@ public class Admin {
      */ 
     private static void verificarAcesos(){
         Sistema.verificarAccesos();
-        System.out.println("Se elimino el academico solicitado");
     }
 }

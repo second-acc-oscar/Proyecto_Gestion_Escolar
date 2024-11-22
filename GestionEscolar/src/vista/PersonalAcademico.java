@@ -23,121 +23,111 @@ public class PersonalAcademico {
     /**
      * Metodo encargado de iniciar las acciones de la clase basado en la opción solicitada por el usuario
      */
-    public static void iniciar( String nombreUsuario ){
-        /**
-         * Fragmento de codigo encargado de solicitar al usuario la accsion deseada haciendo uso de un while y un switch
-         */
-        System.out.println("Hola " + nombreUsuario
-                + "\n¿Qué quieres hacer?"
-                + "\n\t1)Consultar estudiantes "
-                + "\n\t2)Agregar algún estudiantes "
-                + "\n\t3)Modificar algun estudiantes "
-                + "\n\t4)Eliminar algun estudiantes "
-                + "\n\t5)Calcular número de inscripción"
-                + "\n\t6)Salir");
-        try {
-            Scanner lectura = new Scanner(System.in);
-            int op = lectura.nextInt();
-            imprimirMenu(op);
-        }catch(java.util.InputMismatchException e){
-            System.out.println("Se ingresó una opción invalida\n");
-            iniciar( nombreUsuario );
-        }
+    public static void iniciar( String claveUsuario ){
+        Sistema.registrarNuevoLogin( claveUsuario );
         
-    }
-    
-    /**
-     * Metodo encargado de ejecutar la opción seleccionada por el usuario
-     */
-    private static void imprimirMenu(int op){
         Scanner lectura = new Scanner(System.in);
-        while(op != 6){    
-            switch(op){
-                case 1 -> {
-                    System.out.println("Ingresa el número de cuenta del estudiante que quieres consultar, o la palabra \"todos\" para ver todos.");
-                    String option = lectura.next();
-                    if( option.equals("todos") )
-                        consultarEstudiantes();
-                    else
-                        if( Sistema.existeAlumno( Integer.parseInt(option) ) )
-                            Sistema.getAlumno( Integer.parseInt(option) ).imprimirAlumno();
+        int op;
+        try {
+            do {
+                System.out.println("Hola " + Sistema.getNombreAcademico(claveUsuario)
+                        + "\n¿Qué quieres hacer?"
+                        + "\n\t1)Consultar estudiantes "
+                        + "\n\t2)Agregar algún estudiantes "
+                        + "\n\t3)Modificar algun estudiantes "
+                        + "\n\t4)Eliminar algun estudiantes "
+                        + "\n\t5)Calcular número de inscripción"
+                        + "\n\t6)Salir");
+                op = lectura.nextInt();
+
+                switch(op){
+                    case 1 -> {
+                        System.out.println("Ingresa el número de cuenta del estudiante que quieres consultar, o la palabra \"todos\" para ver todos.");
+                        String option = lectura.next();
+                        if( option.equals("todos") )
+                            consultarEstudiantes();
                         else
-                            System.out.println("Alumno no encontrado.");
-                }
-                
-                case 2 -> {
-                    System.out.println("¿De qué forma quieres añadir alumnos al sistema?"
-                            + "\n\t1) De manera aleatoria."
-                            + "\n\t2) De manera manual.");
-                    int option = lectura.nextInt();
-                    
-                    if( option == 1 )
-                    {
-                        System.out.println("¿Cuántos alumnos aleatorios quieres agregar?");
-                        option = lectura.nextInt();
-                        
-                        if( option < 1 || option > 1000 )
-                            System.out.println("Opción no válida.");
-                        else {
-                            System.out.println("Se han añadido los siguientes Alumnos:");
-                            
-                            for( int i = 0; i < option; i++ ) {
-                                Alumno nuevoAlumno = Alumno.generarAlumnoAleatorio();
-                                nuevoAlumno.imprimirAlumno();
+                            if( Sistema.existeAlumno( Integer.parseInt(option) ) )
+                                Sistema.getAlumno( Integer.parseInt(option) ).imprimirAlumno();
+                            else
+                                System.out.println("Alumno no encontrado.");
+                    }
+
+                    case 2 -> {
+                        System.out.println("¿De qué forma quieres añadir alumnos al sistema?"
+                                + "\n\t1) De manera aleatoria."
+                                + "\n\t2) De manera manual.");
+                        int option = lectura.nextInt();
+
+                        switch( option ){
+                            case 1 -> {
+                                System.out.println("¿Cuántos alumnos aleatorios quieres agregar?");
+                                option = lectura.nextInt();
+
+                                if( option < 1 || option > 1000 )
+                                    System.out.println("Opción no válida.");
+                                else {
+                                    System.out.println("Se han añadido los siguientes Alumnos:");
+
+                                    for( int i = 0; i < option; i++ ) {
+                                        Alumno nuevoAlumno = Alumno.generarAlumnoAleatorio();
+                                        nuevoAlumno.imprimirAlumno();
+                                    }
+                                }
                             }
+                            case 2 -> {
+                                lectura.nextLine();
+                                System.out.println("Ingresa el nombre del estudiante a agregar: ");
+                                String nombre = lectura.nextLine();
+                                System.out.println("Ingresa la apellido paterno del estudiante a agregar: ");
+                                String apellidoPaterno = lectura.nextLine();
+                                System.out.println("Ingresa la apellido materno del estudiante a agregar: ");
+                                String apellidoMaterno = lectura.nextLine();
+                                System.out.println("Ingresa la domicilio del estudiante a agregar: ");
+                                String domicilio = lectura.nextLine();
+                                System.out.println("Ingresa la correo del estudiante a agregar: ");
+                                String correo = lectura.nextLine();
+                                System.out.println("Ingresa la edad del estudiante a agregar: ");
+                                int edad = lectura.nextInt();
+                                lectura.nextLine();
+                                agregarEstudiantes(nombre, apellidoPaterno, apellidoMaterno, domicilio, correo, edad);   
+                            }
+                            default -> System.out.println("Opción inválida.");
                         }
                     }
-                    else
-                    {
-                        System.out.println("Ingresa el nombre del estudiante a agregar: ");
-                        String nombre = lectura.next();
-                        System.out.println("Ingresa la apellido paterno del estudiante a agregar: ");
-                        String apellidoPaterno = lectura.next();
-                        System.out.println("Ingresa la apellido materno del estudiante a agregar: ");
-                        String apellidoMaterno = lectura.next();
-                        System.out.println("Ingresa la domicilio del estudiante a agregar: ");
-                        String domicilio = lectura.next();
-                        System.out.println("Ingresa la correo del estudiante a agregar: ");
-                        String correo = lectura.next();
-                        System.out.println("Ingresa la edad del estudiante a agregar: ");
-                        int edad = lectura.nextInt();
-                        agregarEstudiantes(nombre, apellidoPaterno, apellidoMaterno, domicilio, correo, edad);   
-                    }
-                }
 
-                case 3 -> {
-                    boolean tmpNC;
-                    System.out.println("Ingresa el numero de cuenta del estudiante a modificar: ");
-                    int numeroCuenta = lectura.nextInt();
-                    if( Sistema.existeAlumno(numeroCuenta) )
-                        System.out.println("Ese numero de cuenta no existe, use uno diferente");
-                    else
-                    {
-                        modificarEstudiante(numeroCuenta);
+                    case 3 -> {
+                        boolean tmpNC;
+                        System.out.println("Ingresa el numero de cuenta del estudiante a modificar: ");
+                        int numeroCuenta = lectura.nextInt();
+                        if( Sistema.existeAlumno(numeroCuenta) )
+                            System.out.println("Ese numero de cuenta no existe, use uno diferente");
+                        else
+                        {
+                            modificarEstudiante(numeroCuenta);
+                        }
                     }
-                }
 
-                case 4 -> { 
-                    boolean tmpNC;
-                    System.out.println("Ingresa el numero de cuenta del estudiante a modificar: ");
-                    int numeroCuenta = lectura.nextInt();
-                    if( ! Sistema.existeAlumno(numeroCuenta) )
-                        System.out.println("Ese numero de cuenta no existe, use uno diferente");
-                    else
-                        eliminarEstudiante(numeroCuenta);
+                    case 4 -> { 
+                        boolean tmpNC;
+                        System.out.println("Ingresa el numero de cuenta del estudiante a modificar: ");
+                        int numeroCuenta = lectura.nextInt();
+                        if( ! Sistema.existeAlumno(numeroCuenta) )
+                            System.out.println("Ese numero de cuenta no existe, use uno diferente");
+                        else
+                            eliminarEstudiante(numeroCuenta);
+                    }
+
+                    case 5 -> calcularNoInscripcion();
+
+                    case 6 -> System.out.println("Saliendo del sistema");
+
+                    default -> System.out.println("Ingrese una opcion valida");
                 }
-                
-                case 5 -> calcularNoInscripcion();
-                
-                case 6 -> {
-                    op = 5;
-                    System.out.println("Saliendo del sistema");
-                }
-                
-                default -> {
-                    System.out.println("Ingrese una opcion valida");
-                }
-            }
+            }while( op != 6 );
+        }catch(java.util.InputMismatchException e){
+            System.out.println("Se ingresó una opción invalida\n");
+            iniciar( claveUsuario );
         }
     }
     

@@ -21,6 +21,7 @@ public class Login {
                 + "\n\t2. Usuario."
                 + "\n\t3. Salir.\n");
             option = input.nextInt();
+            input.nextLine();
 
             switch( option ) {
                 case 1 -> iniciarAdmin();
@@ -52,9 +53,9 @@ public class Login {
         }
         System.out.println("Por favor, ingresa la contraseña:");
         credencial = input.next();
-        while( (! Admin.getUsuario().equals(credencial)) && (! credencial.equals("1")) )
+        while( ! Admin.getContra().equals(credencial) && ! credencial.equals("1") )
         {
-            System.out.println("Contraseña incorrecta, ingresa el usuario correcto, o \"1\" para salir.");
+            System.out.println("Contraseña incorrecta, ingresa la contraseña correcto, o \"1\" para salir.");
             credencial = input.next();
         }
         if( credencial.equals("1"))
@@ -62,6 +63,7 @@ public class Login {
             System.out.println("Regresando...");;
             return;
         }
+
         Sistema.inicializarBaseDeDatos(true);
         Admin.iniciar();
         Sistema.escribirArchivos(true);
@@ -71,66 +73,27 @@ public class Login {
      * Método que valida las credenciales de acceso para un Usuario que intenta iniciar sesión.
      */
     private static void iniciarUsuario() {
+        Sistema.inicializarUsuarios();
+        
         System.out.println("Por favor, ingrese su clave de usuario: ");
         Scanner lecturaCl = new Scanner(System.in);
-        String clave = lecturaCl.next();
-        boolean tmpCl;
-        do{
-            tmpCl = verificarClaveExistente(clave);
-            if(tmpCl == false){
-                System.out.println("Esa clave no existe, use una diferente");
-                clave = lecturaCl.next();
-            }
-        }while(tmpCl != true);
+        String clave = lecturaCl.nextLine();
+        while( ! Sistema.existeUsuario(clave) ){
+            System.out.println("Esa clave no existe, use una diferente.");
+            clave = lecturaCl.nextLine();
+        }
         
-        System.out.println("Ingrese su contrasena: ");
+        System.out.println("Ingrese su contraseña: ");
         Scanner lecturaCon = new Scanner(System.in);
-        String contrasena = lecturaCon.next();
-        do{
-            tmpCl = verificarContrasenaCoincide(contrasena, clave);
-            System.out.println(tmpCl);
-            if(tmpCl == false){
-                System.out.println("Esa clave no existe, use una diferente");
-                contrasena = lecturaCl.next();
-            }
-        }while(tmpCl != true);
-/*        System.out.println("Ingrese el valor correspondiente a la forma en la que quiuere ingresar \n1)Academico \n2)Administrador");
-        Scanner lectura = new Scanner(System.in);
-        int acc = lectura.nextInt();
-        do{
-            switch (acc) {
-                case 1 -> PersonalAcademico.iniciar();
-                case 2 -> Admin.iniciar();
-                default -> {
-                    System.out.println("El valor ingresado no es valido");
-                    System.out.println("Ingrese un valor valido");
-                    acc = lectura.nextInt();
-                }
-            }¨
-        }while(acc != 1 || acc != 2);
-*/
-        Sistema.inicializarBaseDeDatos(false);
-        PersonalAcademico.iniciar( Sistema.getNombreAcademico(clave) );
-        Sistema.escribirArchivos(false);
-    }
-    
-    /**
-     * Metodo que verifica la existencia de la clave ingresada
-     * @param clave
-     * @return 
-     */
-    private static boolean verificarClaveExistente(String clave) {
-        return Sistema.existeUsuario(clave);
-    }
+        String contrasena = lecturaCon.nextLine();
+        while( ! Sistema.coincideContrasena(clave, contrasena) ){
+            System.out.println("Contraseña inválida, ingrese nuevamente.");
+            contrasena = lecturaCl.nextLine();
+        }
 
-    /**
-     * Metodo encargado de verificar si la contraseña coincide con la clave previamente ingresada
-     * @param contrasena
-     * @param clave
-     * @return 
-     */
-    private static boolean verificarContrasenaCoincide(String contrasena, String clave) {
-        return Sistema.coincideContrasena(clave, contrasena);
+        Sistema.inicializarBaseDeDatos(false);
+        PersonalAcademico.iniciar( clave );
+        Sistema.escribirArchivos(false);
     }
 }
 

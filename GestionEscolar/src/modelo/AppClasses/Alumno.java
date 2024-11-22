@@ -708,7 +708,7 @@ public class Alumno {
                 + "\n\tAsignaturas inscritas:\t" + this.getAsignaturasInscritas()
                 + "\n\tAsignaturas aprobadas:\t" + this.getAsignaturasAprobadas()
                 + "\n\tNo. inscripción:\t" + ( this.getNumeroDeInscripcion() > 0 ? this.getNumeroDeInscripcion(): ( this.getNumeroDeInscripcion() == -1 ? "N/A" : "No disponible" ) )  );
-        historialAcademico.mostrar();
+        //historialAcademico.mostrar();
     }
     
     /**

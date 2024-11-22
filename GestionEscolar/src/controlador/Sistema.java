@@ -1,11 +1,14 @@
 package controlador;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import modelo.AppClasses.Alumno;
 import modelo.AppClasses.AlumnoNumeroInscripcion;
 import modelo.BaseDatos;
 import modelo.AppClasses.Asignatura;
+import modelo.AppClasses.RegistroLogin;
 import modelo.AppClasses.Usuario;
 import modelo.Archivos;
 
@@ -35,6 +38,10 @@ public class Sistema {
             return Archivos.inicializarBaseDatosParaAdmin( bd );
         else
             return Archivos.inicializarBaseDatosParaUsuarios( bd );
+    }
+    
+    public static void inicializarUsuarios() {
+        Archivos.inicializarUsuarios();
     }
     
     /**
@@ -139,6 +146,15 @@ public class Sistema {
      */
     public static Asignatura getAsignatura( String claveAsignatura ) {
         return bd.getAsignatura( claveAsignatura );
+    }
+    
+    /**
+     * Interfaz que hace una petición a la base de datos para obtener un objeto de tipo Usuario.
+     * @param claveUsuario La clave del usuario que se quiere obtener.
+     * @return El usuario asociado a la clave..
+     */
+    public static Usuario getUsuario( String claveUsuario) {
+        return bd.getUsuario( claveUsuario );
     }
 
     /**
@@ -250,5 +266,14 @@ public class Sistema {
         }
         
         return lista;
+    }
+    
+    /**
+     * Método añade al registro, un nuevo inicio de sesión.
+     * @param claveUsuario El Usuario que inició sesión.
+     */
+    public static void registrarNuevoLogin( String claveUsuario ) {
+        RegistroLogin registro = new RegistroLogin( claveUsuario, LocalDate.now(), LocalTime.now() );
+        bd.addRegistroLogin(registro);
     }
 }

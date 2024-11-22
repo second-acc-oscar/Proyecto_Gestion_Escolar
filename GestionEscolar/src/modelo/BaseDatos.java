@@ -165,6 +165,15 @@ public class BaseDatos {
     }
     
     /**
+     * Métodoo que busca en la base de datos un Usuario.
+     * @param claveUsuario La clave del Usuario que se quiere buscar.
+     * @return  El usuario encontrado.
+     */
+    public Usuario getUsuario(String claveUsuario ) {
+        return usuarios.get( claveUsuario );
+    }
+    
+    /**
      * Se utiliza principalmente en la inicialización de objetos de tipo Alumno.
      * El nombre que retorna es completamente aleatorio.
      * @return Uno de los nombres en la base de datos.
@@ -456,15 +465,8 @@ public class BaseDatos {
      * Método que imprime la información de todos los académicos.
      */
     public void imprimirAcademicos() {
-        Enumeration<String> keysUsuarios = usuarios.keys();
-        String claveUsuario;
-        Usuario usuario;
-        
-        while( keysUsuarios.hasMoreElements() ) {
-            claveUsuario = keysUsuarios.nextElement();
-            usuario = usuarios.get( claveUsuario );
+        for( Usuario usuario : usuarios.values() )
             usuario.imprimirUsuario();
-        }
     }
     
     /**

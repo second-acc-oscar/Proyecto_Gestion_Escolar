@@ -1,0 +1,27 @@
+Veronica Ernesto
+Andrade
+Pena
+400527715
+Calle de las Flores, 335, Colonia Lomas de Chapultepec, 11000, Alcaldia Miguel Hidalgo, Mexico
+veronicaernesto.andradepena@fi.unam
+7.0
+27
+3
+15
+14
+7
+1120,6.0,2,3
+1121,7.0,1,1
+1122,7.0,3,3
+1123,7.0,1,1
+1130,7.0,2,1
+1124,9.0,2,2
+1220,8.0,2,1
+1221,6.0,2,2
+1227,7.0,3,3
+1228,7.0,2,2
+1317,5.0,3,2
+1321,6.0,3,1
+1323,7.0,3,3
+1325,7.0,3,3
+1436,9.0,3,1

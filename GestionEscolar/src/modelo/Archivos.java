@@ -107,6 +107,13 @@ public class Archivos {
     private static final String RUTA_REGISTROS_LOGIN = "files/usuarios/registro.txt";
     
     /**
+     * Método que inicializa únicamente los usuarios a partir de archivos.
+     */
+    public static void inicializarUsuarios() {
+        inicializarBaseDatosUsuarios( db );
+    }
+    
+    /**
      * Inicializa la base de datos del sistema con la información que necesita la lógica del programa cuando inicia sesión el <b>administrador</b>.
      * La información que inicializa de archivos incluye:
      * <ul>
@@ -139,7 +146,7 @@ public class Archivos {
         try ( FileWriter fw = new FileWriter( RUTA_USUARIOS_ORIGINAL ); BufferedWriter bw = new BufferedWriter( fw ); PrintWriter salida = new PrintWriter( bw ) ) {
             for( Usuario usuario : bd.getUsuarios() )
             {
-                salida.println( usuario.toCSV() );
+                salida.println( usuario.getClave() );
             }
             
             escribirUsuarios( bd.getUsuarios() );
